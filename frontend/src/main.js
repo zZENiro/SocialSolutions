@@ -6,8 +6,35 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import axios from 'axios';
 
 Vue.config.productionTip = false
+
+const axiosInstance = axios.create({
+  baseURL: process.env.VUE_APP_API_SERVER,
+  // withCredentials: true,
+  // timeout: 1000,
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded',
+  //   Accept: 'application/x-www-form-urlencoded',
+  // },
+});
+
+// prototype section
+// Vue.prototype.$lodash = {
+//   debounce,
+//   isEqual,
+//   upperFirst,
+//   find,
+// };
+// Vue.prototype.$anime = anime
+// Vue.prototype.$hammer = Hammer;
+// Vue.prototype.$uuid = uuid;
+Vue.prototype.$axios = axiosInstance;
+// Vue.prototype.$moment = moment;
+// Vue.prototype.$md5 = md5;
+// Vue.prototype.$arrToSrcset = arrToSrcset;
+// Vue.prototype.$iban = iban;
 
 new Vue({
   router,
