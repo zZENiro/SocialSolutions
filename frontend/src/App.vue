@@ -17,7 +17,9 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </v-main>
   </v-app>
 </template>
@@ -30,3 +32,13 @@ export default {
   }),
 };
 </script>
+<style lang="scss">
+  /* fade */
+  .fade-enter-active, .fade-leave-active {
+    transition: all ease-in-out .1s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  /* fade end */
+</style>
