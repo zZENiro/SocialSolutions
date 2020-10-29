@@ -7,6 +7,8 @@ import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import axios from 'axios';
+import Vuelidate from 'vuelidate';
+import Base64 from 'crypto-js/enc-base64';
 
 Vue.config.productionTip = false
 
@@ -32,9 +34,13 @@ const axiosInstance = axios.create({
 // Vue.prototype.$uuid = uuid;
 Vue.prototype.$axios = axiosInstance;
 // Vue.prototype.$moment = moment;
-// Vue.prototype.$md5 = md5;
+Vue.prototype.$Base64 = Base64;
 // Vue.prototype.$arrToSrcset = arrToSrcset;
 // Vue.prototype.$iban = iban;
+
+// use section
+// Vue.use(VueMeta);
+Vue.use(Vuelidate);
 
 new Vue({
   router,

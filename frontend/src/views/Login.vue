@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height>
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <Login/>
       </v-col>
     </v-row>

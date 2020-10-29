@@ -5,14 +5,18 @@
         <div class="text-h1">
           Hi
         </div>
-        <v-btn color="primary mt-5" to="/login">Login</v-btn>
+        <v-btn color="primary mt-5" to="/login" v-if="!token">Login</v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
+  computed: {
+    ...mapState(['token']),
+  },
 }
 </script>

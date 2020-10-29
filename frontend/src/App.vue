@@ -1,20 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color=""
-    >
-      <div class="d-flex align-center">Social Solutions</div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        to="/login"
-        color="primary"
-      >
-        Login
-      </v-btn>
-    </v-app-bar>
+    <AppBar />
 
     <v-main>
       <transition name="fade" mode="out-in">
@@ -25,11 +11,20 @@
 </template>
 
 <script>
+import AppBar from '@/components/AppBar.vue';
+
 export default {
   name: 'App',
+  components: {
+    AppBar,
+  },
   data: () => ({
     //
   }),
+  mounted() {
+    const token = localStorage.getItem('token');
+    if (token) this.$store.dispatch('setToken', token);
+  },
 };
 </script>
 <style lang="scss">
