@@ -1,0 +1,15 @@
+@import '~vuetify/src/styles/settings/_colors.scss';
+
+$body-font-family: 'Ubuntu', sans-serif;
+$heading-font-family: $body-font-family;
+$font-size-root: 16px;
+$input-font-size: $font-size-root;
+
+// buttons
+$btn-font-sizes: (
+  'default': $font-size-root,
+);
+$btn-letter-spacing: normal;
+$btn-text-transform: unset;
+
+$primary: #0075FF;
