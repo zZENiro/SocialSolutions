@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["community-index"],{e412:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" lkjlkj ")])},l=[],c=t("2877"),i=t("6544"),o=t.n(i),r=t("a523"),u={},s=Object(c["a"])(u,a,l,!1,null,null,null);e["default"]=s.exports;o()(s,{VContainer:r["a"]})}}]);
-//# sourceMappingURL=community-index.cbd52652.js.map

@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["groups"],{"754e":function(n,e,t){"use strict";t.r(e);var r=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" groups ")])},a=[],o=t("2877"),u=t("6544"),s=t.n(u),c=t("a523"),l={},i=Object(o["a"])(l,r,a,!1,null,null,null);e["default"]=i.exports;s()(i,{VContainer:c["a"]})}}]);
-//# sourceMappingURL=groups.17957687.js.map

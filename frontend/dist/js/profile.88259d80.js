@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["profile"],{"893c":function(t,e,n){"use strict";n.r(e);var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("router-view")},u=[],o={data:function(){return{submenu:[{title:"Профиль",href:"/profile",icon:"mdi-gift"}]}},mounted:function(){this.$store.commit("SET_SUBMENU",this.submenu)}},r=o,c=n("2877"),s=Object(c["a"])(r,i,u,!1,null,null,null);e["default"]=s.exports}}]);
-//# sourceMappingURL=profile.88259d80.js.map

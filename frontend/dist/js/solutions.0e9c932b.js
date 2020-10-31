@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["solutions"],{"4bd5":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" Проблемы и решения ")])},o=[],l=t("2877"),r=t("6544"),s=t.n(r),u=t("a523"),c={},i=Object(l["a"])(c,a,o,!1,null,null,null);e["default"]=i.exports;s()(i,{VContainer:u["a"]})}}]);
-//# sourceMappingURL=solutions.0e9c932b.js.map

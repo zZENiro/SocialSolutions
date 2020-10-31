@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["events"],{"801b":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" events ")])},r=[],s=t("2877"),c=t("6544"),l=t.n(c),o=t("a523"),u={},i=Object(s["a"])(u,a,r,!1,null,null,null);e["default"]=i.exports;l()(i,{VContainer:o["a"]})}}]);
-//# sourceMappingURL=events.c5f0adaa.js.map
