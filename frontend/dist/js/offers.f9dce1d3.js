@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["offers"],{"5d7e":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" Идеи и предложения от общественников и госструктур. Можно проголосовать за идею ")])},r=[],o=t("2877"),c=t("6544"),l=t.n(c),s=t("a523"),u={},i=Object(o["a"])(u,a,r,!1,null,null,null);e["default"]=i.exports;l()(i,{VContainer:s["a"]})}}]);
+//# sourceMappingURL=offers.f9dce1d3.js.map

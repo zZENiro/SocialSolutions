@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["work"],{"79fd":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" Вакансии (интеграция) и жалобы на работодателей ")])},r=[],o=t("2877"),c=t("6544"),l=t.n(c),u=t("a523"),i={},s=Object(o["a"])(i,a,r,!1,null,null,null);e["default"]=s.exports;l()(s,{VContainer:u["a"]})}}]);
+//# sourceMappingURL=work.fc94f5a2.js.map

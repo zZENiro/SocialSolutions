@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["stories"],{"9fc2":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" Истории ")])},r=[],c=t("2877"),o=t("6544"),s=t.n(o),i=t("a523"),l={},u=Object(c["a"])(l,a,r,!1,null,null,null);e["default"]=u.exports;s()(u,{VContainer:i["a"]})}}]);
+//# sourceMappingURL=stories.6c7adac9.js.map

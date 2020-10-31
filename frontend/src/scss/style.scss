@@ -1,0 +1,7 @@
+@import '~@mdi/font/css/materialdesignicons.css';
+@import './variables.scss';
+@import '~vuetify/src/styles/main.sass';
+
+.elevation-primary {
+  box-shadow: 0 0 1.5rem rgba($primary, .25)!important;
+}
