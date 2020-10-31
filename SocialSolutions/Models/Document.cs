@@ -7,6 +7,6 @@ namespace SocialSolutions.Models
         [Key]
         public int Id { get; set; }
     
-        public byte[] Data { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -21,19 +21,13 @@ namespace SocialSolutions.Controllers
     public class AccountsController : Controller
     {
         private readonly IAccountRepository _accRepo;
-        private readonly IProfileRepository _profileRepo;
         private readonly IConfiguration _config;
-        private readonly IRoleRepository _roleRepo;
 
         public AccountsController(
             IAccountRepository repo,
-            IProfileRepository profileRepository,
-            IRoleRepository roleRepo,
             IConfiguration config)
         {
-            _roleRepo = roleRepo;
             _accRepo = repo;
-            _profileRepo = profileRepository;
             _config = config;
         }
 
@@ -56,20 +50,12 @@ namespace SocialSolutions.Controllers
             {
                 var account = await _accRepo.GetByLoginAsync(creds.Login);
 
-                // del cycles and pwd
-                foreach (var ur in account.User.Roles)
-                {
-                    ur.User = null;
-                    ur.Role.UsersRoles = null;
-                }
-                account.Password = null;
-
                 return new JsonResult(
                     new
                     {
                         responseType = HttpStatusCode.OK,
                         token = GetJwt(identity),
-                        accountCreds = account,
+                        accountCreds = (ProfileViewModel)account,
                         Message = "You're registered in"
                     });
             }
@@ -93,7 +79,7 @@ namespace SocialSolutions.Controllers
                 {
                     responseType = HttpStatusCode.OK,
                     token = GetJwt(identity),
-                    accountCreds = account,//
+                    accountCreds = account,
                     Message = "You're logged in"
                 });
         }

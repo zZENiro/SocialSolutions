@@ -1,6 +1,7 @@
 ﻿using SocialSolutions.Models;
 using SocialSolutions.Repositories.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SocialSolutions.Repositories
@@ -19,7 +20,7 @@ namespace SocialSolutions.Repositories
             var res = await _context.Users.AddAsync(value);
             if (!(await _context.SaveChangesAsync() > 0))
                 throw new ApplicationException("Didn't added");
-            
+
             return res.Entity.Id;
         }
 
@@ -32,9 +33,10 @@ namespace SocialSolutions.Repositories
         });
 
         public async Task Update(User oldValue, User newValue)
-        {
-            var user = await GetByIdAsync(oldValue.Id);
-            user = newValue;
+        {  
+            if (oldValue.Id == newValue.Id)
+                _context.Update<User>(newValue);
+
             if (!(await _context.SaveChangesAsync() > 0))
                 throw new ApplicationException("Value didn't changed");
         }
