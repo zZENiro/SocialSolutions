@@ -83,7 +83,7 @@ namespace SocialSolutions.Controllers
         {
             var identity = await GetIdentity(creds);
 
-            if (identity == null)
+            if (identity == null) 
                 return BadRequest(new { errorText = "Invalid username or password." });
 
             var account = await _accRepo.GetByLoginAsync(creds.Login);
