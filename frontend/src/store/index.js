@@ -9,6 +9,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     submenu: [],
+    mapFilters: {},
+    mapList: false,
   },
   mutations: {
     SET_TOKEN(state, data) {
@@ -16,7 +18,13 @@ export default new Vuex.Store({
     },
     SET_SUBMENU(state, data) {
       state.submenu = data;
-    }
+    },
+    SET_MAP_FILTERS(state, data) {
+      state.mapFilters = data;
+    },
+    SET_MAP_LIST(state, data) {
+      state.mapList = data;
+    },
   },
   actions: {
     setToken({ commit }, data) {

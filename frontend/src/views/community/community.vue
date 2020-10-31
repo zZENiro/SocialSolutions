@@ -9,22 +9,22 @@ export default {
         {
           title: 'Поиск работы',
           href: '/community/work',
-          icon: 'mdi-gift',
+          icon: 'mdi-briefcase',
         },
         {
           title: 'Группы',
           href: '/community/groups',
-          icon: 'mdi-gift',
+          icon: 'mdi-account-group',
         },
         {
           title: 'Мероприятия',
           href: '/community/events',
-          icon: 'mdi-information-variant',
+          icon: 'mdi-calendar-check',
         },
         {
           title: 'Карта доступности',
           href: '/community/business',
-          icon: 'mdi-hand',
+          icon: 'mdi-map-marker',
         },
       ],
     }

@@ -71,8 +71,13 @@ const routes = [
         path: 'work',
         name: 'work',
         component: () => import(/* webpackChunkName: "work" */ '@/views/community/work.vue'),
-      }
-      ,{
+      },
+      {
+        path: 'work/filter',
+        name: 'work-filter',
+        component: () => import(/* webpackChunkName: "work-filer" */ '@/views/community/work-filter.vue'),
+      },
+      {
         path: 'business',
         name: 'business',
         component: () => import(/* webpackChunkName: "business" */ '@/views/community/Business.vue'),

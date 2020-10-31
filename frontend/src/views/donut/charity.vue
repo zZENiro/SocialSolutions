@@ -10,6 +10,7 @@
                 v-model="fond"
                 label="Фонд"
                 outlined
+                rounded
                 :hide-details="'auto'"
               ></v-text-field>
               <v-text-field
@@ -17,6 +18,7 @@
                 label="Сумма"
                 class="mt-3"
                 outlined
+                rounded
                 :hide-details="'auto'"
               ></v-text-field>
               <v-text-field
@@ -24,9 +26,10 @@
                 label="Ваше имя"
                 class="mt-3"
                 outlined
+                rounded
                 :hide-details="'auto'"
               ></v-text-field>
-              <v-btn color="primary" class="mt-3" block x-large type="submit">Отправить</v-btn>
+              <v-btn color="primary" rounded class="mt-3" block x-large type="submit">Отправить</v-btn>
             </form>
           </v-col>
         </v-row>

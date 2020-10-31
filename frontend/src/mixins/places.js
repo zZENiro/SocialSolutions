@@ -168,7 +168,7 @@ const places = {
         };
       });
 
-      // if (markers.features.length) this.zoom();
+      if (markers.features.length) this.zoom();
     },
     zoom() {
       // zoom to show all features in map on screen

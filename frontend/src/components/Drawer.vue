@@ -32,11 +32,13 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <DrawerMapFilters v-if="$route.path === '/community/business'" />
   </v-navigation-drawer>
 </template>
 <script>
 import { mapState } from 'vuex'
 import DrawerHeaderPerson from '@/components/DrawerHeaderPerson.vue';
+import DrawerMapFilters from '@/components/DrawerMapFilters.vue';
 
 export default {
   props: {
@@ -45,6 +47,7 @@ export default {
   },
   components: {
     DrawerHeaderPerson,
+    DrawerMapFilters,
   },
   data() {
     return {
