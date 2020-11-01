@@ -14,6 +14,7 @@ export default new Vuex.Store({
     user: {},
     role: {},
     badEye: false,
+    drawer: true,
   },
   mutations: {
     SET_TOKEN(state, data) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     SET_BAD_EYE(state, data) {
       state.badEye = data;
+    },
+    SET_DRAWER(state, data) {
+      state.drawer = data;
     },
   },
   actions: {

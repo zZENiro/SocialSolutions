@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e43f9c072527a662f5fe",
+    "revision": "3ac72ba09d879893af1a",
     "url": "/css/app.de944a75.css"
   },
   {
@@ -244,6 +244,22 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/bg2.586fe368.svg"
   },
   {
+    "revision": "719a7fe8a85e6f60af3cd160aae40e4e",
+    "url": "/img/logo1-dark.719a7fe8.svg"
+  },
+  {
+    "revision": "dc3d4404eef7787e26bd9941e686ccee",
+    "url": "/img/logo1.dc3d4404.svg"
+  },
+  {
+    "revision": "56d8f403fabea999c6dc1f3daf00a3c9",
+    "url": "/img/logo2-dark.56d8f403.svg"
+  },
+  {
+    "revision": "eb7eb16a2f9d768d8c36e51d4305a6bc",
+    "url": "/img/logo2.eb7eb16a.svg"
+  },
+  {
     "revision": "0706eb5a2215c6e451922bb98d93666f",
     "url": "/img/ubuntu-bold-italic-webfont.0706eb5a.svg"
   },
@@ -296,7 +312,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/ubuntumono-regular-webfont.56da304a.svg"
   },
   {
-    "revision": "8a4cdcb9a5ecfcd25b434b5cefc01517",
+    "revision": "21877cfe81b2f82a389bfafa7b36c2c1",
     "url": "/index.html"
   },
   {
@@ -304,8 +320,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/Login.ddf67695.js"
   },
   {
-    "revision": "e43f9c072527a662f5fe",
-    "url": "/js/app.481ce8c2.js"
+    "revision": "3ac72ba09d879893af1a",
+    "url": "/js/app.d352b50a.js"
   },
   {
     "revision": "20b7ed8767609f363db0",

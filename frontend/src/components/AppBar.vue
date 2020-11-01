@@ -6,16 +6,10 @@
     class="elevation-primary"
   >
     <v-app-bar-nav-icon @click="$emit('update:drawer', !drawer)"></v-app-bar-nav-icon>
-    <div class="d-flex align-center">Social Solutions</div>
-    <v-btn
-      icon
-      @click="openSearch = !openSearch"
-      class="ml-3"
-      outlined
-      color="primary"
-    >
-      <v-icon >mdi-magnify</v-icon>
-    </v-btn>
+    <router-link to="/">
+      <img v-if="!$vuetify.theme.dark" height="44" src="@/assets/img/logo2.svg" alt="">
+      <img v-else height="44" src="@/assets/img/logo2-dark.svg" alt="">
+    </router-link>
     <transition name="slide-top" mode="out-in" tag="div" :css="true" class="col">
       <v-text-field
         outlined
@@ -123,6 +117,15 @@
         </div>
       </div>
     </transition>
+    <v-btn
+      icon
+      @click="openSearch = !openSearch"
+      class="mr-0"
+      :outlined="$vuetify.breakpoint.mdAndUp"
+      color="primary"
+    >
+      <v-icon >mdi-magnify</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 <script>

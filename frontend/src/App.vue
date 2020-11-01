@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Drawer app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
+    <Drawer v-if="$route.path !== '/'" app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
     <!-- <v-navigation-drawer permanent app></v-navigation-drawer>
     <v-app-bar app></v-app-bar> -->
     <AppBar app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
@@ -57,6 +57,8 @@ export default {
     if (badEye) {
       this.$store.dispatch('setBadEye', badEye === 'true' ? true : false);
     }
+
+    if (this.$route.path === '/') this.drawer = false;
   },
   methods: {
     toggleDesign() {
