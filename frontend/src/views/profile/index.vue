@@ -1,18 +1,21 @@
 <template>
-  <v-container>
-    <div class="text-h4 mt-8">Группы</div>
-    <div class="row">
-      <div v-for="(item, i) in [...groups, {}]" :key="i" class="col-auto">
-        <SsCard :item="item" :empty="i === groups.length" />
+  <div>
+    <DeskTitle title="Ваша статистика"/>
+    <v-container>
+      <div class="text-h4 mt-8">Группы</div>
+      <div class="row">
+        <div v-for="(item, i) in [...groups, {}]" :key="i" class="col-6 col-md-4 col-lg-3">
+          <SsCard :item="item" :empty="i === groups.length" />
+        </div>
       </div>
-    </div>
-    <div class="text-h4 mt-8">События</div>
-    <div class="row">
-      <div v-for="(item, i) in [...events, {}]" :key="i" class="col-auto">
-        <SsCard :item="item" :empty="i === events.length" />
+      <div class="text-h4 mt-8">События</div>
+      <div class="row">
+        <div v-for="(item, i) in [...events, {}]" :key="i" class="col-6 col-md-4 col-lg-3">
+          <SsCard :item="item" :empty="i === events.length" />
+        </div>
       </div>
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>
 <script>
 export default {

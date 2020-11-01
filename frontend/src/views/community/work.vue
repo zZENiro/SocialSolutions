@@ -1,15 +1,39 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <div class="text-h5 my-6 my-md-12">
-          Найдено 2034 вакансии
-          <v-btn icon to="filter" append class="ml-3"><v-icon>mdi-cog</v-icon></v-btn>
-        </div>
-      </v-col>
-    </v-row>
-    <router-view></router-view>
-  </v-container>
+  <div>
+    <DeskTitle subtitle="Искать работу">
+      <template v-slot:title>
+        Найдено <strong>2034</strong> вакансии
+        <v-btn icon :to="{ path: 'filter', query: $route.query }" append class="ml-3"><v-icon>mdi-cog</v-icon></v-btn>
+      </template>
+    </DeskTitle>
+    <v-container>
+      <v-row>
+        <v-col>
+          <v-list>
+            <template v-for="(item, i) in Array(5)">
+              <v-list-item :key="i">
+                <v-list-item-content>
+                  <div class="d-flex flex-column flex-md-row">
+                    <div class="title primary--text my-3">Frontend-разработчик</div>
+                    <v-spacer></v-spacer>
+                    <div class="title my-3">150 000 - 180 000 rub.</div>
+                  </div>
+                  <div class="my-3" style="line-height:1.5;">Документирование программного кода, верификация программного кода других разработчиков. Своевременное ведение учета выполненных работ. Оценка объема работы по сформированным техническим заданиям.</div>
+                  <div class="d-flex align-end my-3">
+                    <v-btn outlined rounded x-large color="primary">Откликнуться</v-btn>
+                    <v-spacer></v-spacer>
+                    <div class="grey--text">today</div>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider :key="`divider-${i}`" ></v-divider>
+            </template>
+          </v-list>
+        </v-col>
+      </v-row>
+      <router-view></router-view>
+    </v-container>
+  </div>
 </template>
 <script>
 export default {
@@ -19,15 +43,12 @@ export default {
     }
   },
   mounted() {
-    // this.getScript();
+    // this.getVacancies();
   },
   methods: {
-    getScript() {
-      const url = 'https://api.superjob.ru/2.0/vacancies/';
-      const headers = {
-        'X-Api-App-Id': this.apiKey,
-      };
-      this.callApi({ url, headers });
+    getVacancies() {
+      const url = '/api/Vacancies/getcatalogs';
+      this.callApi({ url });
     },
     async callApi({ url, data, headers }) {
       this.loading = true;

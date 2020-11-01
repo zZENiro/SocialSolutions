@@ -21,6 +21,7 @@
         v-for="(item, i) in submenu"
         :key="i"
         :to="item.href"
+        exact
         class="px-2"
         active-class="primary--text"
       >

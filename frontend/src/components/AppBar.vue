@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     app
-    color="white"
+    :color="$vuetify.theme.dark ? 'dark' : 'white'"
     clipped-left
     class="elevation-primary"
   >
@@ -29,6 +29,7 @@
         class="ml-3"
         v-if="openSearch"
         key="1"
+        v-click-outside="() => { if (openSearch) openSearch = !openSearch; }"
       ></v-text-field>
       <div v-else class="d-flex col" key="2">
         <div class="d-none d-sm-flex justify-center col">
@@ -92,7 +93,7 @@
             title="Выйти"
             to="/profile"
           >
-            <span>Vasily</span>
+            <span>{{ user.name }}</span>
             <v-avatar right :size="44" class="ml-3">
               <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
             </v-avatar>
@@ -106,13 +107,13 @@
             large
             :outlined="!badEye"
             :color="badEye ? 'primary' : ''"
-            @click="$emit('update:bad-eye', !badEye)"
+            @click="$store.dispatch('setBadEye', !badEye)"
             title="Версия для слабовидящих"
           >
             <v-icon>mdi-eye</v-icon>
           </v-btn>
           <v-btn
-            to="/login"
+            @click="$store.dispatch('setBadEye', !badEye)"
             color="primary"
             class="d-flex d-sm-none"
             icon
@@ -131,7 +132,6 @@ export default {
   props: {
     drawer: Boolean,
     drawerMini: Boolean,
-    badEye: Boolean,
   },
   data() {
     return {
@@ -153,7 +153,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['token']),
+    ...mapState(['token', 'user', 'badEye']),
   },
   methods: {
     logout() {

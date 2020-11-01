@@ -9,22 +9,22 @@ export default {
         {
           title: 'Проблемы и решения',
           href: '/blog/solutions',
-          icon: 'mdi-gift',
+          icon: 'mdi-sync-alert',
         },
         {
           title: 'Истории',
           href: '/blog/stories',
-          icon: 'mdi-information-variant',
+          icon: 'mdi-bookshelf',
         },
         {
           title: 'Новости',
           href: '/blog/news',
-          icon: 'mdi-gift',
+          icon: 'mdi-newspaper-variant-outline',
         },
         {
           title: 'Предложения',
           href: '/blog/offers',
-          icon: 'mdi-gift',
+          icon: 'mdi-head-lightbulb-outline',
         },
       ],
     }

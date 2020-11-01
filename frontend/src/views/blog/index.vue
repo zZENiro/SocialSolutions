@@ -1,5 +1,8 @@
 <template>
-  <v-container>
-    lkjlkj
-  </v-container>
+  <div>
+    <DeskTitle title="Блог" />
+    <v-container>
+      Блог
+    </v-container>
+  </div>
 </template>

@@ -11,6 +11,9 @@ export default new Vuex.Store({
     submenu: [],
     mapFilters: {},
     mapList: false,
+    user: {},
+    role: {},
+    badEye: false,
   },
   mutations: {
     SET_TOKEN(state, data) {
@@ -24,6 +27,15 @@ export default new Vuex.Store({
     },
     SET_MAP_LIST(state, data) {
       state.mapList = data;
+    },
+    SET_USER(state, data) {
+      state.user = data;
+    },
+    SET_ROLE(state, data) {
+      state.role = data;
+    },
+    SET_BAD_EYE(state, data) {
+      state.badEye = data;
     },
   },
   actions: {
@@ -41,6 +53,23 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+    async setUser(/*{ commit }, data*/) {
+      const url = '/api/user';
+      try {
+        const res = await this._vm.$axios.get(url);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    setRole({ commit }, data) {
+      commit('SET_ROLE', data);
+      localStorage.setItem('role', JSON.stringify(data));
+    },
+    setBadEye({ commit }, data) {
+      commit('SET_BAD_EYE', data);
+      localStorage.setItem('badEye', data);
     },
     logout({ commit }) {
       commit('SET_TOKEN', null);

@@ -3,7 +3,7 @@
     <Drawer app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
     <!-- <v-navigation-drawer permanent app></v-navigation-drawer>
     <v-app-bar app></v-app-bar> -->
-    <AppBar app :drawer.sync="drawer" :drawerMini.sync="drawerMini" :bad-eye.sync="badEye" />
+    <AppBar app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
 
     <v-main>
       <transition name="fade" mode="out-in">
@@ -16,6 +16,7 @@
 <script>
 import Drawer from '@/components/Drawer.vue';
 import AppBar from '@/components/AppBar.vue';
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -26,11 +27,48 @@ export default {
   data: () => ({
     drawer: true,
     drawerMini: false,
-    badEye: false,
   }),
+  computed: {
+    ...mapState(['badEye']),
+  },
+  watch: {
+    badEye: {
+      handler() {
+        this.toggleDesign();
+      },
+    },
+  },
   mounted() {
     const token = localStorage.getItem('token');
-    if (token) this.$store.dispatch('setToken', token);
+    const role = localStorage.getItem('role');
+    const badEye = localStorage.getItem('badEye');
+    if (token) {
+      this.$store.dispatch('setToken', token);
+
+      // TEMPORARY!!!!
+      const user = localStorage.getItem('user');
+      this.$store.commit('SET_USER', JSON.parse(user));
+    }
+    if (role) {
+      this.$store.dispatch('setRole', JSON.parse(role));
+    }
+
+    // set badEye
+    if (badEye) {
+      this.$store.dispatch('setBadEye', badEye === 'true' ? true : false);
+    }
+  },
+  methods: {
+    toggleDesign() {
+      console.log('toggle');
+      if (this.badEye) {
+        // document.documentElement.style.fontSize = '20px';
+        this.$vuetify.theme.dark = true;
+      } else {
+        // document.documentElement.style.fontSize = '16px';
+        this.$vuetify.theme.dark = false;
+      }
+    }
   },
 };
 </script>

@@ -7,9 +7,14 @@ export default {
     return {
       submenu: [
         {
-          title: 'Профиль',
+          title: 'Панель управления',
           href: '/profile',
-          icon: 'mdi-gift',
+          icon: 'mdi-account-cog',
+        },
+        {
+          title: 'Мои льготы',
+          href: '/profile/documents',
+          icon: 'mdi-text-box-check-outline',
         },
       ],
     }

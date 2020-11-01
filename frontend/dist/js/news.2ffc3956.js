@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["news"],{4336:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("DeskTitle",{attrs:{title:"События"}}),t("v-container",[n._v(" Портал новостей (интеграция) ")])],1)},i=[],l=t("2877"),r=t("6544"),s=t.n(r),c=t("a523"),o={},u=Object(l["a"])(o,a,i,!1,null,null,null);e["default"]=u.exports;s()(u,{VContainer:c["a"]})}}]);
+//# sourceMappingURL=news.2ffc3956.js.map

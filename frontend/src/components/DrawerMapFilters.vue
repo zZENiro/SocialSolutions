@@ -46,7 +46,7 @@
         v-for="(item, i) in problems"
         :key="i"
         :value="item.value"
-        active-class="success--text"
+        active-class="primary--text"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>

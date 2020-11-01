@@ -128,7 +128,14 @@ export default {
           this.errorsUsername = res.data.message;
           this.errorsPassword = res.data.message;
         } else  {
+          // set token
           this.$store.dispatch('setToken', res.data.token);
+
+          // set user
+          this.$store.commit('SET_USER', res.data.accountCreds);
+
+          // TEMPORARY!!!!!
+          localStorage.setItem('user', JSON.stringify(res.data.accountCreds?.user))
         }
       } catch (error) {
         console.log(error);

@@ -68,7 +68,7 @@ const places = {
 
       // event handling
       map.data.addListener("click", event => {
-        this.$emit('google.data.click', event.feature);
+        this.$emit('google.data.click', event);
       });
     },
     initDirections() {
@@ -161,10 +161,11 @@ const places = {
 
       // coloring
       this.googleApis.map.data.setStyle((feature) => {
-        const type = feature.getProperty('type') || '';
-        const color = `${this.googleApis.taskColorMap[type] || '555'}`;
+        const text = feature.getProperty('text') || '';
+        const color = feature.getProperty('color') || '0075FF';
+        const icon = feature.getProperty('icon') || '';
         return {
-          icon: { url: `https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?text=${type}&size=40&background=${color}&color=FFF&hoffset=-1` }
+          icon: { url: `https://cdn.mapmarker.io/api/v1/pin?size=190&text=${text}&icon=${icon}&size=40&background=${color}&color=FFF&hoffset=-1` }
         };
       });
 

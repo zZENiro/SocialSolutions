@@ -17,7 +17,6 @@ const routes = [
   },
   {
     path: '/blog',
-    name: 'blog',
     component: () => import(/* webpackChunkName: "blog" */ '@/views/blog/blog.vue'),
     children: [
       {
@@ -49,7 +48,6 @@ const routes = [
   },
   {
     path: '/community',
-    name: 'community',
     component: () => import(/* webpackChunkName: "community" */ '@/views/community/community.vue'),
     children: [
       {
@@ -61,6 +59,11 @@ const routes = [
         path: 'groups',
         name: 'groups',
         component: () => import(/* webpackChunkName: "groups" */ '@/views/community/groups.vue'),
+      },
+      {
+        path: 'people',
+        name: 'people',
+        component: () => import(/* webpackChunkName: "people" */ '@/views/community/people.vue'),
       },
       {
         path: 'events',
@@ -86,7 +89,6 @@ const routes = [
   },
   {
     path: '/donut',
-    name: 'donut',
     component: () => import(/* webpackChunkName: "donut" */ '@/views/donut/donut.vue'),
     children: [
       {
@@ -113,7 +115,6 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'profile',
     component: () => import(/* webpackChunkName: "profile" */ '@/views/profile/profile.vue'),
     children: [
       {
@@ -125,6 +126,11 @@ const routes = [
         path: 'settings',
         name: 'settings',
         component: () => import(/* webpackChunkName: "settings" */ '@/views/profile/settings.vue'),
+      },
+      {
+        path: 'documents',
+        name: 'documents',
+        component: () => import(/* webpackChunkName: "documents" */ '@/views/profile/documents.vue'),
       },
     ]
   },

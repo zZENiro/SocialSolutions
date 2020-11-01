@@ -28,7 +28,10 @@ export default {
         return {
           type: 'Feature',
           properties: {
-            // type: task.priority,
+            title: task.Caption_small,
+            phone: task.Contact?.Phone,
+            // text: 'dfg',
+            icon: 'fa-star'
           },
           id: task.id,
           geometry: {
@@ -61,6 +64,27 @@ export default {
         this.setMarkers(this.markers);
         // this.initDirections();
       })
+
+    // handle event
+    this.$on('google.data.click', (feature) => {
+      const title = feature.feature.getProperty('title');
+      const phone = feature.feature.getProperty('phone');
+      const content = `
+        <div style="padding:1rem;">
+          <div class="title">
+            ${title}
+          </div>
+          <div class="subtitle mt-3">
+            ${phone}
+          </div>
+        </div>
+      `;
+      const infowindow = new window.google.maps.InfoWindow({
+        content,
+      });
+      infowindow.setPosition(feature.latLng);
+      infowindow.open(this.googleApis.map, new window.google.maps.MVCObject());
+    })
   },
 }
 </script>

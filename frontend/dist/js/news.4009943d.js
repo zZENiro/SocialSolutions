@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["news"],{4336:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("v-container",[n._v(" Портал новостей (интеграция) ")])},r=[],c=t("2877"),l=t("6544"),o=t.n(l),s=t("a523"),u={},i=Object(c["a"])(u,a,r,!1,null,null,null);e["default"]=i.exports;o()(i,{VContainer:s["a"]})}}]);
-//# sourceMappingURL=news.4009943d.js.map

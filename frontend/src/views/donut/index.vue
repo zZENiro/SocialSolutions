@@ -1,13 +1,10 @@
 <template>
   <div class="fill-height d-flex flex-column">
-    <div class="grey lighten-3">
-      <v-container class="secondary--text">
-        <div class="text-h4 text-sm-h3 my-6 my-sm-12">
-          Каждый может<br/>сделать доброе дело!
-        </div>
-        <div class="text-h5 my-3">Поддержать</div>
-      </v-container>
-    </div>
+    <DeskTitle  subtitle="Поддержать">
+      <template v-slot:title>
+        Каждый может<br/>сделать доброе дело!
+      </template>
+    </DeskTitle>
     <v-container class="flex-grow-1 d-flex align-center">
       <v-row class="justify-center">
         <v-col cols="12" sm="8" class="d-flex justify-space-around">

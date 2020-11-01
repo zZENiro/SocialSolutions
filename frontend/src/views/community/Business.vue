@@ -1,10 +1,13 @@
 <template>
-  <v-container fluid fill-height pa-0 class="flex-column" :class="{'map-loading': loading}">
+  <v-container fluid fill-height pa-0 class="flex-column">
+    <transition name="fade">
+      <div class="map-loading" v-if="loading"></div>
+    </transition>
     <transition name="fade" mode="out-in" tag="div">
       <div v-if="!mapList" style="flex:1;min-width:100%;" :key="1">
         <Map :organizations="organizations" />
       </div>
-      <v-container v-else :key="2">
+      <v-container v-if="mapList" :key="2">
         <div class="text-h3 my-6 my-sm-12 ml-3">Список объектов</div>
         <v-list>
           <template v-for="(item, i) in organizations">
@@ -98,20 +101,39 @@ export default {
 }
 </script>
 <style lang="scss">
-  .map-lodaing::before {
-    content: "";
+  .map-loading {
+    pointer-events: none;
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    background-color: rgba($color: white, $alpha: .8);
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #ccd8ff, $alpha: .5);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
   }
-  .map-lodaing::after {
-    content: "Загрузка";
+  .map-loading::after {
+    content: " ";
+    pointer-events: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: var(--v-primary-base) transparent var(--v-primary-base) transparent;
+    top: calc(50vh - 4rem);
+    left: calc(50% - 4rem);
+    z-index: 1000;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 </style>

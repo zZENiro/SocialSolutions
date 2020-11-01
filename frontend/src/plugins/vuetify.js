@@ -18,9 +18,18 @@ export default new Vuetify({
         accent: '#82B1FF',
         error: '#FF003D',
         info: '#2196F3',
-        success: '#4CAF50',
+        success: '#36FD85',
         warning: '#FFC107'
       },
+      dark: {
+        primary: '#8888FF',
+        secondary: '#888',
+        accent: '#fff',
+        error: '#FF003D',
+        info: '#2196F3',
+        success: '#36FD85',
+        warning: '#FFC107'
+      }
     },
   },
     lang: {

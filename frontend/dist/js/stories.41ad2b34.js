@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["stories"],{"9fc2":function(t,e,n){"use strict";n.r(e);var a=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",[n("DeskTitle",{attrs:{title:"Истории"}}),n("v-container",[t._v(" ррр ")])],1)},i=[],r=n("2877"),s=n("6544"),l=n.n(s),c=n("a523"),o={},u=Object(r["a"])(o,a,i,!1,null,null,null);e["default"]=u.exports;l()(u,{VContainer:c["a"]})}}]);
+//# sourceMappingURL=stories.41ad2b34.js.map

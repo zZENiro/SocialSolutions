@@ -1,5 +1,8 @@
 <template>
-  <v-container>
-    lkjlkj
-  </v-container>
+  <div>
+    <DeskTitle title="Сообщество" />
+    <v-container>
+      ооо
+    </v-container>
+  </div>
 </template>

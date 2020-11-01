@@ -12,7 +12,12 @@ export default {
           icon: 'mdi-briefcase',
         },
         {
-          title: 'Группы',
+          title: 'Люди',
+          href: '/community/people',
+          icon: 'mdi-account',
+        },
+        {
+          title: 'Сообщества',
           href: '/community/groups',
           icon: 'mdi-account-group',
         },

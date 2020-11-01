@@ -11,6 +11,7 @@ import axios from 'axios';
 import Vuelidate from 'vuelidate';
 import Base64 from 'crypto-js/enc-base64';
 import ssCard from '@/components/ssCard.vue';
+import DeskTitle from '@/components/DeskTitle.vue';
 import {
   // debounce,
   // isEqual,
@@ -56,6 +57,7 @@ Vue.use(Vuelidate);
 
 // components
 Vue.component('SsCard', ssCard);
+Vue.component('DeskTitle', DeskTitle);
 
 new Vue({
   router,

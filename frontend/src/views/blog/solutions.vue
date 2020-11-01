@@ -1,5 +1,8 @@
 <template>
-  <v-container>
-    Проблемы и решения
-  </v-container>
+  <div>
+    <DeskTitle title="Решить проблему" subtitle="Задать вопрос, найти ответ" />
+    <v-container>
+      ррр
+    </v-container>
+  </div>
 </template>
