@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="text-h3 mb-6 text-center text-md-left">Login</div>
+    <div class="text-h3 mb-6 text-center text-md-left">Вход/Регистрация</div>
     <form @submit.prevent="login">
       <v-text-field
         v-model="$v.username.$model"
-        label="Username"
+        label="Логин"
         outlined
+        rounded
+        large
         :error-messages="errorsUsername"
         :hide-details="'auto'"
         :disabled="loading"
@@ -13,9 +15,11 @@
       ></v-text-field>
       <v-text-field
         v-model="$v.password.$model"
-        label="password"
+        label="Пароль"
         type="password"
         outlined
+        rounded
+        large
         :error-messages="errorsPassword"
         :hide-details="'auto'"
         class="mt-3"
@@ -26,18 +30,22 @@
         class="mt-3"
         color="primary"
         block
+        rounded
+        x-large
         type="submit"
         :disabled="loading"
-      >Login</v-btn>
+      >Вход</v-btn>
       <v-btn
         class="mt-3"
         color="primary"
         outlined
+        rounded
+        x-large
         block
         type="button"
         @click="register"
         :disabled="loading"
-      >Register</v-btn>
+      >Регистрация</v-btn>
     </form>
   </div>
 </template>
@@ -88,14 +96,14 @@ export default {
     token: {
       immediate: true,
       handler(val) {
-        if (val) {
+        if (val && this.user?.id) {
           this.$router.push('/');
         }
       },
     },
   },
   computed: {
-    ...mapState(['token']),
+    ...mapState(['token', 'user']),
   },
   methods: {
     async login() {

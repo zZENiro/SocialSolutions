@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle title="Сообщества" />
+    <DeskTitle image="2" title="Сообщества" />
     <v-container>
       groups
     </v-container>

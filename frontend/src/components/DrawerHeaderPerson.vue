@@ -4,7 +4,7 @@
       <v-list-item-avatar>
         <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
       </v-list-item-avatar>
-      <v-list-item-title>{{ user.name }} {{ user.secondName }}</v-list-item-title>
+      <v-list-item-title>{{ user && user.name }} {{ user && user.secondName }}</v-list-item-title>
       <v-btn
         icon
         @click.stop="$emit('update:drawer-mini', !drawerMini)"
@@ -14,8 +14,8 @@
     </v-list-item>
     <v-list-item two-line>
       <v-list-item-content v-if="!drawerMini">
-        <v-list-item-title>{{ user.mobilePhone }}</v-list-item-title>
-        <v-list-item-subtitle>{{ role.name || 'Роль не выбрана' }}</v-list-item-subtitle>
+        <v-list-item-title>{{ user && user.mobilePhone }}</v-list-item-title>
+        <v-list-item-subtitle>{{ role && role.name || 'Роль не выбрана' }}</v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
         <v-btn icon to="/profile/settings" active-class="primary--text">

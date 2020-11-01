@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle title="Люди" subtitle="Знакомства для всех" />
+    <DeskTitle image="2" title="Люди" subtitle="Знакомства для всех" />
     <v-container>
       <v-list>
       </v-list>

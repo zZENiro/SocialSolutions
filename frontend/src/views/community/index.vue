@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle title="Сообщество" />
+    <DeskTitle image="2" title="Сообщество" />
     <v-container>
       ооо
     </v-container>

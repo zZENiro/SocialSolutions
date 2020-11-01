@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle subtitle="Искать работу">
+    <DeskTitle image="2" subtitle="Искать работу">
       <template v-slot:title>
         Найдено <strong>2034</strong> вакансии
         <v-btn icon :to="{ path: 'filter', query: $route.query }" append class="ml-3"><v-icon>mdi-cog</v-icon></v-btn>

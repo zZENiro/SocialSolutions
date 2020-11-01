@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["people"],{"1a14":function(t,e,n){"use strict";n.r(e);var a=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",[n("DeskTitle",{attrs:{title:"Люди",subtitle:"Знакомства для всех"}}),n("v-container",[n("v-list")],1)],1)},i=[],l=n("2877"),s=n("6544"),r=n.n(s),o=n("a523"),u=n("8860"),c={},p=Object(l["a"])(c,a,i,!1,null,null,null);e["default"]=p.exports;r()(p,{VContainer:o["a"],VList:u["a"]})}}]);
-//# sourceMappingURL=people.e166884a.js.map

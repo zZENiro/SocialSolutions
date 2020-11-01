@@ -42,7 +42,7 @@
           </v-btn>
         </div>
         <v-spacer class="d-flex d-sm-none"></v-spacer>
-        <div class="ml-3 d-flex align-center" v-if="!token">
+        <div class="ml-3 d-flex align-center" v-if="!token || !user">
           <v-btn
             to="/login"
             class="d-none d-sm-flex"
@@ -65,7 +65,7 @@
             <v-icon>mdi-login</v-icon>
           </v-btn>
         </div>
-        <div v-if="token" class="d-flex ml-3 align-center">
+        <div v-if="token && user" class="d-flex ml-3 align-center">
           <v-btn
             pill
             class="d-none d-sm-flex pr-2"
@@ -78,19 +78,45 @@
             <v-icon>mdi-email</v-icon>
             <v-chip color="error" class="ml-3">2</v-chip>
           </v-btn>
-          <v-btn
-            class="d-none d-sm-flex pr-0 ml-3"
-            depressed
-            large
-            rounded
-            color="primary"
-            title="Выйти"
-            to="/profile"
+          <v-menu
+            open-on-hover
+            offset-y
+            rounded="xl"
           >
-            <span>{{ user.name }}</span>
-            <v-avatar right :size="44" class="ml-3">
-              <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-            </v-avatar>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                class="d-none d-sm-flex pr-0 ml-3"
+                depressed
+                large
+                rounded
+                color="primary"
+                title="Профиль"
+                to="/profile"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <span>{{ user && user.name }}</span>
+                <v-avatar right :size="44" class="ml-3">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                </v-avatar>
+              </v-btn>
+            </template>
+            <v-list class="py-0">
+              <v-list-item @click="logout">
+                <v-list-item-title>Выход</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-btn
+            class="d-flex d-sm-none"
+            rounded
+            icon
+            large
+            color="primary"
+            @click="logout"
+            title="Выход"
+          >
+            <v-icon>mdi-logout</v-icon>
           </v-btn>
         </div>
         <div class="d-flex ml-3 align-center">

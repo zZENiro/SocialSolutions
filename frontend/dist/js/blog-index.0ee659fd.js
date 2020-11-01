@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["blog-index"],{"138b":function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("DeskTitle",{attrs:{title:"Блог"}}),t("v-container",[n._v(" Блог ")])],1)},i=[],l=t("2877"),r=t("6544"),o=t.n(r),s=t("a523"),c={},u=Object(l["a"])(c,a,i,!1,null,null,null);e["default"]=u.exports;o()(u,{VContainer:s["a"]})}}]);
-//# sourceMappingURL=blog-index.0ee659fd.js.map

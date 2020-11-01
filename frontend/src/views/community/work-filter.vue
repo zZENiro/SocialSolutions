@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle>
+    <DeskTitle image="2">
       <template v-slot:title>
         Фильтр
         <v-btn icon to="/community/work" append class="ml-3" title="Назад"><v-icon>mdi-chevron-left</v-icon></v-btn>

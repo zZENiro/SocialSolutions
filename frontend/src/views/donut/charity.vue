@@ -11,13 +11,14 @@
           <v-row>
             <v-col cols="12" sm="6">
               <form @submit.prevent="send" class="mt-6 mt-sm-12">
-                <v-text-field
+                <v-autocomplete
+                  :items="fonds"
                   v-model="fond"
                   label="Фонд"
                   outlined
                   rounded
                   :hide-details="'auto'"
-                ></v-text-field>
+                ></v-autocomplete>
                 <v-text-field
                   v-model="sum"
                   label="Сумма"
@@ -50,6 +51,12 @@ export default {
       fond: '',
       sum: '',
       name: '',
+      fonds: [
+        'Подари жизнь',
+        '«Нужна помощь» ',
+        'Благотворительный фонд «Вера»',
+        'Фонд «Дом с маяком»',
+      ],
     }
   },
   methods: {

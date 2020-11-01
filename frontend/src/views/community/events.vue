@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle title="События" />
+    <DeskTitle image="2" title="События" />
     <v-container>
       <v-row>
         <v-col cols="6" md="4" lg="3" v-for="(item, i) in events" :key="i">

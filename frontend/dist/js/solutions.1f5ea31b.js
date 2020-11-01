@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["solutions"],{"4bd5":function(t,n,e){"use strict";e.r(n);var i=function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("div",[e("DeskTitle",{attrs:{title:"Решить проблему",subtitle:"Задать вопрос, найти ответ"}}),e("v-container",[t._v(" ррр ")])],1)},l=[],s=e("2877"),a=e("6544"),o=e.n(a),r=e("a523"),u={},c=Object(s["a"])(u,i,l,!1,null,null,null);n["default"]=c.exports;o()(c,{VContainer:r["a"]})}}]);
-//# sourceMappingURL=solutions.1f5ea31b.js.map

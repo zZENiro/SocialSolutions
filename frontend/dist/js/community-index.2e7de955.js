@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["community-index"],{e412:function(n,e,t){"use strict";t.r(e);var i=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("DeskTitle",{attrs:{title:"Сообщество"}}),t("v-container",[n._v(" ооо ")])],1)},a=[],l=t("2877"),r=t("6544"),c=t.n(r),o=t("a523"),s={},u=Object(l["a"])(s,i,a,!1,null,null,null);e["default"]=u.exports;c()(u,{VContainer:o["a"]})}}]);
-//# sourceMappingURL=community-index.2e7de955.js.map

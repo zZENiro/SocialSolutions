@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DeskTitle title="Блог" />
+    <DeskTitle image="3" title="Блог" />
     <v-container>
       Блог
     </v-container>
