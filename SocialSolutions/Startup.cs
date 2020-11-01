@@ -14,6 +14,7 @@ using SocialSolutions.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Net.Http;
 
 namespace SocialSolutions
 {

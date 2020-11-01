@@ -33,9 +33,18 @@ namespace SocialSolutions.Repositories
         });
 
         public async Task Update(User oldValue, User newValue)
-        {  
+        {
             if (oldValue.Id == newValue.Id)
-                _context.Update<User>(newValue);
+            {
+                oldValue.AboutMe = newValue.AboutMe;
+                oldValue.Birthdate = newValue.Birthdate;
+                oldValue.Gender = newValue.Gender;
+                oldValue.MobilePhone = newValue.MobilePhone;
+                oldValue.Name = newValue.Name;
+                oldValue.SecondName = newValue.SecondName;
+
+                _context.Update<User>(oldValue);
+            }
 
             if (!(await _context.SaveChangesAsync() > 0))
                 throw new ApplicationException("Value didn't changed");

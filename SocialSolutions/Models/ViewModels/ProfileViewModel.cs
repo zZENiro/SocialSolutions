@@ -4,6 +4,47 @@ using System.Linq;
 
 namespace SocialSolutions.Models.ViewModels
 {
+    public class InputAccount
+    {
+        public int Id { get; set; }
+        public string Login { get; set; }
+    }
+
+    public class InputLocation
+    {
+        public float Longitude { get; set; }
+        public float Latitude { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+    }
+
+
+    public class ProfileInputViewModel
+    {
+        public Account Account { get; set; }
+        public int ProfileId { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string AboutMe { get; set; }
+        public string Birthdate { get; set; }
+        public string Gender { get; set; }
+        public Location Location { get; set; }
+        public string MobilePhone { get; set; }
+
+        public static implicit operator User(ProfileInputViewModel vm) =>
+            new User()
+            {
+                Id = vm.ProfileId,
+                Name = vm.Name,
+                SecondName = vm.SecondName,
+                AboutMe = vm.AboutMe,
+                Birthdate = DateTime.Parse(vm.Birthdate),
+                Gender = vm.Gender,
+                Location = vm.Location,
+                MobilePhone = vm.MobilePhone
+            };
+    }
+
     public class ProfileViewModel
     {
         public AccountViewModel Account { get; set; }
@@ -27,7 +68,7 @@ namespace SocialSolutions.Models.ViewModels
         public IEnumerable<Community> OwnCommunities { get; set; }
 
         public IEnumerable<Document> Documents { get; set; }
-        
+
         public IEnumerable<Community> Communities { get; set; }
 
         public IEnumerable<Permit> Permits { get; set; }
@@ -46,7 +87,7 @@ namespace SocialSolutions.Models.ViewModels
 
         public static implicit operator ProfileViewModel(Account acc)
         {
-            var res =  new ProfileViewModel()
+            var res = new ProfileViewModel()
             {
                 OwnCommunities = acc.User.OwnCommunities,
                 Communities = acc.User.Communities.Select(prop => prop.Community),

@@ -46,5 +46,6 @@ namespace SocialSolutions.Models
         public IEnumerable<UsersSkills> Skills { get; set; }
 
         public IEnumerable<UsersEvents> Events { get; set; }
+
     }
 }

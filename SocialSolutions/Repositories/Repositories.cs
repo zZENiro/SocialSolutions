@@ -29,4 +29,27 @@ namespace SocialSolutions.Repositories
 
         Task<IEnumerable<Role>> GetAllAsync();
     }
+
+    public interface ILocationRepository : IRepository<Location>
+    {
+        
+    }
+
+    public class LocationRepository : ILocationRepository
+    {
+        public Task<int> Add(Location value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task Remove(Location value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task Update(Location oldValue, Location newValue)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
