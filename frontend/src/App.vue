@@ -57,8 +57,6 @@ export default {
     if (badEye) {
       this.$store.dispatch('setBadEye', badEye === 'true' ? true : false);
     }
-
-    if (this.$route.path === '/') this.drawer = false;
   },
   methods: {
     toggleDesign() {
