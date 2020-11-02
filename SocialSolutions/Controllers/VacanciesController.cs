@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Nancy.Json;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,6 @@ using System.Threading.Tasks;
 
 namespace SocialSolutions.Controllers
 {
-    /*
-     {
-        "catalogues":[33], 
-        "sort_new":1,
-        "experience":2,
-        "payment_from": 0,
-        "payment_to": 100000
-     }
-     */
-
     public class VacancyParameters
     {
         public int period { get; set; }
@@ -43,6 +34,12 @@ namespace SocialSolutions.Controllers
     public class VacanciesController : Controller
     {
         private StringBuilder _sb = new StringBuilder();
+        private readonly IConfiguration _configuration;
+
+        public VacanciesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         [HttpGet]
         [Route("[action]")]
@@ -51,7 +48,7 @@ namespace SocialSolutions.Controllers
             WebRequest request = WebRequest.Create("https://api.superjob.ru/2.20/catalogues/");
             request.Method = "POST";
             request.Headers.Add("Authorization", "Bearer v3.r.133137306.828a4769efb4c265bea28292018a50911e8556a4.aa70c99a48ea6c51d7109f379b400eac5cc8c7f9");
-            request.Headers.Add("X-Api-App-Id", "v3.r.133137306.68a93c968533e6928209b1a8db43a1a5479bc1fa.b2d2d31eb305aaa014aaabff6e60d7e1b12809db");
+            request.Headers.Add("X-Api-App-Id", _configuration["superJob_ApiKey"]);
             request.Headers.Add("Connection", "keep-alive");
             request.Headers.Add("Accept", "*/*");
             var result = request.GetResponse();
@@ -74,7 +71,7 @@ namespace SocialSolutions.Controllers
             var request = (HttpWebRequest)WebRequest.Create("https://api.superjob.ru/2.20/regions/?");
             request.Method = "POST";
             request.Headers.Add("Authorization", "Bearer v3.r.133137306.828a4769efb4c265bea28292018a50911e8556a4.aa70c99a48ea6c51d7109f379b400eac5cc8c7f9");
-            request.Headers.Add("X-Api-App-Id", "v3.r.133137306.68a93c968533e6928209b1a8db43a1a5479bc1fa.b2d2d31eb305aaa014aaabff6e60d7e1b12809db");
+            request.Headers.Add("X-Api-App-Id", _configuration["superJob_ApiKey"]);
             request.Headers.Add("Connection", "keep-alive");
             request.Headers.Add("Accept", "*/*");
 
@@ -96,7 +93,7 @@ namespace SocialSolutions.Controllers
             var request = (HttpWebRequest)WebRequest.Create($"https://api.superjob.ru/2.20/towns/?id_region={int.Parse(region_id)}");
             request.Method = "POST";
             request.Headers.Add("Authorization", "Bearer v3.r.133137306.828a4769efb4c265bea28292018a50911e8556a4.aa70c99a48ea6c51d7109f379b400eac5cc8c7f9");
-            request.Headers.Add("X-Api-App-Id", "v3.r.133137306.68a93c968533e6928209b1a8db43a1a5479bc1fa.b2d2d31eb305aaa014aaabff6e60d7e1b12809db");
+            request.Headers.Add("X-Api-App-Id", _configuration["superJob_ApiKey"]);
             request.Headers.Add("Connection", "keep-alive");
             request.Headers.Add("Accept", "*/*");
 

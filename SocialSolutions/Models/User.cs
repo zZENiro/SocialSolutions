@@ -1,4 +1,5 @@
-﻿using SocialSolutions.Controllers;
+﻿using Microsoft.AspNetCore.Identity;
+using SocialSolutions.Controllers;
 using SocialSolutions.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace SocialSolutions.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        [Key]
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string SecondName { get; set; }
@@ -46,6 +44,5 @@ namespace SocialSolutions.Models
         public IEnumerable<UsersSkills> Skills { get; set; }
 
         public IEnumerable<UsersEvents> Events { get; set; }
-
     }
 }

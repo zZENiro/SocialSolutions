@@ -15,6 +15,7 @@ namespace SocialSolutions.Controllers
     [Controller]
     [Route("api/[controller]")]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "userPolicy")]
+    
     public class ProfileController : Controller
     {
         private readonly IProfileRepository _profileRepo;
