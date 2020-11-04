@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
 using SocialSolutions.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Threading;
 
 namespace SocialSolutions.Controllers
 {
@@ -20,43 +22,45 @@ namespace SocialSolutions.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private readonly IAccountRepository _accRepo;
         private readonly IConfiguration _config;
+        private readonly IUserStore<User> _userStore;
+        private readonly CancellationTokenSource _cts;
+        private readonly PasswordHasher<User> _passwordHasher;
 
         public AccountsController(
-            IAccountRepository repo,
-            IConfiguration config)
+            IConfiguration configuration,
+            IUserStore<User> userStore,
+            CancellationTokenSource cts,
+            PasswordHasher<User> passwordHasher)
         {
-            _accRepo = repo;
-            _config = config;
+            _config = configuration;
+            _userStore = userStore;
+            _cts = cts;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> Register([FromBody] AccountViewModel creds)
         {
-            if (await GetIdentity(creds) != null)
-                return BadRequest(new { errorText = "This account already exist." });
+            if (_userStore.FindByNameAsync(creds.Login, _cts.Token) != null)
+                return BadRequest(new { errorText = "This account already exist" });
 
-            await _accRepo.Add(new Account()
-            {
-                Password = creds.Password,
-                Login = creds.Login,
-                User = new User()
-            });
+            var newUser = new Models.User() { Login = creds.Login };
+            var hashedUserPassword = _passwordHasher.HashPassword(newUser, creds.Password);
+            newUser.PasswordHash = hashedUserPassword;
 
-            var identity = await GetIdentity(creds);
-            if (identity != null)
+            if (await _userStore.CreateAsync(newUser, _cts.Token) == IdentityResult.Success)
             {
-                var account = await _accRepo.GetByLoginAsync(creds.Login);
+                var identity = GetIdentity(newUser);
 
                 return new JsonResult(
                     new
                     {
                         responseType = HttpStatusCode.OK,
                         token = GetJwt(identity),
-                        accountCreds = (ProfileViewModel)account,
-                        Message = "You're registered in"
+                        accountCreds = new { Login = creds.Login },
+                        Message = "You're logged in"
                     });
             }
 
@@ -67,19 +71,26 @@ namespace SocialSolutions.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Login([FromBody] AccountViewModel creds)
         {
-            var identity = await GetIdentity(creds);
+            var queryableUser = await _userStore.FindByNameAsync(creds.Login, _cts.Token);
 
-            if (identity == null) 
-                return BadRequest(new { errorText = "Invalid username or password." });
+            var verifyResult = _passwordHasher.VerifyHashedPassword(queryableUser, queryableUser.PasswordHash, creds.Password);
 
-            var account = await _accRepo.GetByLoginAsync(creds.Login);
+            if (queryableUser is null || verifyResult == PasswordVerificationResult.Failed)
+                return BadRequest(new { errorText = "Bad login." });
+            else if (verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
+            {
+                queryableUser.PasswordHash = _passwordHasher.HashPassword(queryableUser, creds.Password);
+                await _userStore.UpdateAsync(queryableUser, _cts.Token);
+            }
+
+            var identity = GetIdentity(queryableUser);
 
             return new JsonResult(
                 new
                 {
                     responseType = HttpStatusCode.OK,
                     token = GetJwt(identity),
-                    accountCreds = account,
+                    accountCreds = queryableUser,
                     Message = "You're logged in"
                 });
         }
@@ -101,25 +112,18 @@ namespace SocialSolutions.Controllers
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
-        private async Task<ClaimsIdentity> GetIdentity(AccountViewModel creds)
+        private ClaimsIdentity GetIdentity(User acc)
         {
-            var acc = await _accRepo.GetByLoginAsync(creds.Login);
+            var claims = new List<Claim>() { new Claim(ClaimsIdentity.DefaultNameClaimType, acc.Login) };
 
-            if (acc != null && acc.Password == creds.Password)
-            {
-                var claims = new List<Claim>() { new Claim(ClaimsIdentity.DefaultNameClaimType, acc.Login) };
+            if (acc.UsersRoles.Count() > 0)
+                foreach (var role in acc.UsersRoles.Select(prop => prop.Role.Name))
+                    claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
+            else
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"));
 
-                if (acc.User.Roles.Count() > 0)
-                    foreach (var role in acc.User.Roles.Select(prop => prop.Role.Name))
-                        claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
-                else
-                    claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"));
-
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
-                return claimsIdentity;
-            }
-
-            return null;
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
+            return claimsIdentity;
         }
     }
 }

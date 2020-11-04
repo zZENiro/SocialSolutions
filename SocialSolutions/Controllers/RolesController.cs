@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using SocialSolutions.Models;
 using SocialSolutions.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,15 +13,15 @@ namespace SocialSolutions.Controllers
     [Route("api/[controller]")]
     public class RolesController : Controller
     {
-        IRoleRepository _roleRepository;
+        private readonly IRoleStore<Role> _roleStore;
 
-        public RolesController(IRoleRepository roleRepository)
+        public RolesController(IRoleStore<Role> roleStore)
         {
-            _roleRepository = roleRepository;
+            this._roleStore = roleStore;
         }
 
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> GetAll() => new JsonResult(await _roleRepository.GetAllAsync());
+        //[HttpGet]
+        //[Route("[action]")]
+        //public async Task<IActionResult> GetAll() => new JsonResult(await _roleStore.get);
     }
 }

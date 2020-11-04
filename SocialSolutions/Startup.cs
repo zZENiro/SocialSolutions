@@ -17,6 +17,9 @@ using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Net.Http;
 using SocialSolutions.Models;
+using Microsoft.AspNetCore.Identity;
+using SocialSolutions.Repositories.Stores;
+using System.Threading;
 
 namespace SocialSolutions
 {
@@ -45,6 +48,9 @@ namespace SocialSolutions
                 });
             });
 
+            services.AddTransient<CancellationTokenSource>();
+            services.AddTransient<PasswordHasher<User>>();
+
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,20 +64,15 @@ namespace SocialSolutions
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddRoles<Role>();
+                .AddDefaultTokenProviders();
 
-            
+            services.AddTransient<IRoleStore<Role>>(
+                impl => new ApplicationRoleStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
 
-            services.AddTransient<IProfileRepository>(impl =>
-               new ProfileRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            services.AddTransient<IRoleRepository>(impl =>
-                new RoleRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            services.AddTransient<IAccountRepository>(impl =>
-                new AccountRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            
+            services.AddTransient<IUserStore<User>>(
+                impl => new ApplicationUserStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
 
             services.AddAuthorization(config =>
             {
@@ -79,7 +80,6 @@ namespace SocialSolutions
                 {
                     userPolicy.RequireRole("User");
                 });
-                
             });
         }
 

@@ -12,4 +12,5 @@ namespace SocialSolutions.Models
     {
         public IEnumerable<UsersRoles> UsersRoles { get; set; }
     }
+
 }

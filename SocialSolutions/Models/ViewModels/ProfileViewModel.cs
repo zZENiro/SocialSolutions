@@ -21,7 +21,6 @@ namespace SocialSolutions.Models.ViewModels
 
     public class ProfileInputViewModel
     {
-        public Account Account { get; set; }
         public int ProfileId { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
@@ -35,7 +34,7 @@ namespace SocialSolutions.Models.ViewModels
             new User()
             {
                 Id = vm.ProfileId,
-                Name = vm.Name,
+                UserName = vm.Name,
                 SecondName = vm.SecondName,
                 AboutMe = vm.AboutMe,
                 Birthdate = DateTime.Parse(vm.Birthdate),
@@ -85,29 +84,29 @@ namespace SocialSolutions.Models.ViewModels
 
         public IEnumerable<Event> Events { get; set; }
 
-        public static implicit operator ProfileViewModel(Account acc)
+        public static implicit operator ProfileViewModel(User acc)
         {
             var res = new ProfileViewModel()
             {
-                OwnCommunities = acc.User.OwnCommunities,
-                Communities = acc.User.Communities.Select(prop => prop.Community),
-                Account = new AccountViewModel() { Id = acc.Id, Login = acc.Login, Password = acc.Password },
-                ProfileId = acc.User.Id,
-                Name = acc.User.Name,
-                SecondName = acc.User.SecondName,
-                AboutMe = acc.User.AboutMe,
-                Birthdate = acc.User.Birthdate,
-                Gender = acc.User.Gender,
-                Location = acc.User.Location,
-                MobilePhone = acc.User.MobilePhone,
-                Documents = acc.User.Documents,
-                Permits = acc.User.Permits.Select(prop => prop.Permit),
-                Roles = acc.User.Roles.Select(prop => prop.Role),
-                Groups = acc.User.Groups.Select(prop => prop.Group),
-                Albums = acc.User.Albums,
-                Hobbies = acc.User.Hobbies.Select(prop => prop.Hobby),
-                Skills = acc.User.Skills.Select(prop => prop.Skill),
-                Events = acc.User.Events.Select(prop => prop.Event)
+                OwnCommunities = acc.OwnCommunities,
+                Communities = acc.Communities.Select(prop => prop.Community),
+                Account = new AccountViewModel() { Id = acc.Id, Login = acc.Login },
+                ProfileId = acc.Id,
+                Name = acc.UserName,
+                SecondName = acc.SecondName,
+                AboutMe = acc.AboutMe,
+                Birthdate = acc.Birthdate,
+                Gender = acc.Gender,
+                Location = acc.Location,
+                MobilePhone = acc.MobilePhone,
+                Documents = acc.Documents,
+                Permits = acc.Permits.Select(prop => prop.Permit),
+                Roles = acc.UsersRoles.Select(prop => prop.Role),
+                Groups = acc.Groups.Select(prop => prop.Group),
+                Albums = acc.Albums,
+                Hobbies = acc.Hobbies.Select(prop => prop.Hobby),
+                Skills = acc.Skills.Select(prop => prop.Skill),
+                Events = acc.Events.Select(prop => prop.Event)
             };
 
             return res;

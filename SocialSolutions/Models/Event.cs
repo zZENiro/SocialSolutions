@@ -13,6 +13,8 @@ namespace SocialSolutions.Models
 
         public User Moderator { get; set; }
 
+        public bool IsPublished { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
