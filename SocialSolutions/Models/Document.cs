@@ -8,5 +8,7 @@ namespace SocialSolutions.Models
         public int Id { get; set; }
     
         public string Url { get; set; }
+
+        public User Owner { get; set; }
     }
 }

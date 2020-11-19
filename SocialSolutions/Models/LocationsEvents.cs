@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace SocialSolutions.Models
 {
-    public class Account
+    public class LocationsEvents
     {
         [Key]
         public int Id { get; set; }
 
-        public string Login { get; set; }
+        public Event Event { get; set; }
 
-        public string Password { get; set; }
-
-        public User User { get; set; }
+        public Location Location { get; set; }
     }
 }

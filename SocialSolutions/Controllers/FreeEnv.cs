@@ -11,117 +11,76 @@ using System.Text;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using System.Globalization;
 
 namespace SocialSolutions.Controllers
 {
-    public class Filter
+    public class OpenEnvParams
     {
-        public string regnId { get; set; }
-        public string regnText { get; set; }
-        public object sferaId { get; set; }
-        public object sferaText { get; set; }
-        public object vidId { get; set; }
-        public object vidText { get; set; }
-        public object captionId { get; set; }
-        public object captionText { get; set; }
-        public object captionOsiId { get; set; }
-        public object captionOsiText { get; set; }
-    }
-
-    public class Response
-    {
-        public bool HasError { get; set; }
-        public Result[] Result { get; set; }
-        public string ErrorMessage { get; set; }
-    }
-
-    public class Result
-    {
-        public int Id { get; set; }
-        public string Caption { get; set; }
-        public string Caption_small { get; set; }
-        public string Captionosi { get; set; }
-        public string Id_region_obj { get; set; }
-        public string Caption_region_obj { get; set; }
-        public string Caption_obj { get; set; }
-        public string Nomerreg { get; set; }
-        public string Datreestr { get; set; }
-        public string Datizmtek { get; set; }
-        public Contact Contact { get; set; }
-        public Dostup Dostup { get; set; }
-    }
-
-    public class Contact
-    {
-        public int Id_org { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-    }
-
-    public class Dostup
-    {
-        public int Dost_Kolyas { get; set; }
-        public int Dost_ODA { get; set; }
-        public int Dost_Zren { get; set; }
-        public int Dost_Sluh { get; set; }
-        public int Dost_Um { get; set; }
-    }
-
-    public class OutputData
-    {
-        public string d { get; set; }
+        public double[] bbox { get; set; }
+        public int? z { get; set; }
+        public string[] categories { get; set; }
+        public string[] subcategories { get; set; }
+        public int[] elements { get; set; }
+        public bool callback { get; set; }
     }
 
     [Controller]
     [Route("api/[controller]")]
-    [Authorize()]
-    public class FreeEnv : Controller
+    public class OpenEnvController : Controller
     {
+        private readonly IConfiguration _configuration;
+        private readonly NumberFormatInfo _nfi;
+
+        public OpenEnvController(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+            _nfi = new CultureInfo("en-US", false).NumberFormat;
+            _nfi.NumberDecimalSeparator = ".";
+            _nfi.NumberDecimalDigits = 20;
+        }
+
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> GetResult()
+        public async Task<IActionResult> GetResult([FromBody] OpenEnvParams inputs)
         {
-            string message;
+            var categories = inputs.categories is null       ? string.Empty       : "&categories=" + string.Join(',', inputs.categories);
+            var subcategories = inputs.subcategories is null ? string.Empty       : "&subcategories=" + string.Join(',', inputs.subcategories);
+            var elements = inputs.elements is null           ? string.Empty       : "&elements=" + string.Join(',', inputs.elements.Select(el => el.ToString()));
+            var z  = inputs.z is null                        ? string.Empty       : "&z=" + inputs.z.ToString();
 
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-                message = await reader.ReadToEndAsync();
+            var url = $"http://www.kartadostupnosti.ru/api/map/frontend/v1/json/objects.php?" +
+                                                $"bbox={inputs.bbox[0].ToString(_nfi)},{inputs.bbox[1].ToString(_nfi)},{inputs.bbox[2].ToString(_nfi)},{inputs.bbox[3].ToString(_nfi)}" +
+                                                $"&callback={inputs.callback}" +
+                                                $"{z}" +
+                                                $"{categories}" +
+                                                $"{subcategories}" +
+                                                $"{elements}";
 
-            var client = new HttpClient();
 
-            client.DefaultRequestHeaders
-                .Accept
-                .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var request = WebRequest.CreateHttp(url);
+            request.Method = "POST";
+            request.KeepAlive = true;
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, 
-                                                                "https://slk.msp.midural.ru/ds/WebServiceAss.asmx/GetOrganizationCollection");
-            request.Content = new StringContent(message,
-                                                Encoding.UTF8,
-                                                "application/json");
-
-            OutputData output = null;
-
-            using (var resp = await client.PostAsync(request.RequestUri, request.Content))
+            try
             {
-                if (resp.StatusCode != HttpStatusCode.OK)
-                    return new JsonResult(new { Error = "Запрос не дошёл" });
+                var resp = await request.GetResponseAsync();
+                var result = string.Empty;
 
-                var stream = await resp.Content.ReadAsStreamAsync();
-                using (StreamReader sr = new StreamReader(stream))
-                using (JsonReader reader = new JsonTextReader(sr))
+                using (var rs = resp.GetResponseStream())
+                using (var sr = new StreamReader(rs))
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    do
-                    {
-                        output = serializer.Deserialize<OutputData>(reader);
-                    }
-                    while (reader.Read());
+                    result = await sr.ReadToEndAsync();
                 }
-            }
 
-            if (output != null) return new JsonResult(output);
-            return new JsonResult(new { Error = "Данные с ДС плохие" });
+                return new JsonResult(result) { ContentType = "application/json", StatusCode = (int)HttpStatusCode.OK };
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
         }
     }
 }
+

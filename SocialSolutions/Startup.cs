@@ -17,6 +17,9 @@ using System.Text;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Net.Http;
 using SocialSolutions.Models;
+using Microsoft.AspNetCore.Identity;
+using SocialSolutions.Repositories.Stores;
+using System.Threading;
 
 namespace SocialSolutions
 {
@@ -25,10 +28,26 @@ namespace SocialSolutions
         IConfiguration _config;
         private readonly IWebHostEnvironment _env;
 
+        #region DB Credetionals
+
+        private string DBServer;
+        private string DBPassword;
+        private string DBPort;
+        private string DBUser;
+        private string Database;
+
+        #endregion
+
         public Startup(IConfiguration config, IWebHostEnvironment env)
         {
             _config = config;
             _env = env;
+
+            DBServer = _config["DBServer"] ?? "92.38.189.217";
+            DBPassword = _config["DBPassword"] ?? "123456";
+            DBPort = _config["DBPort"] ?? "1111";
+            DBUser = _config["DBUser"] ?? "root";
+            Database = _config["Database"] ?? "socialSolutions_db";
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -45,33 +64,24 @@ namespace SocialSolutions
                 });
             });
 
-            if (_env.IsDevelopment())
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(_config.GetConnectionString("debug_con")));
-            }
-            else if (_env.IsProduction())
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(_config.GetConnectionString("release_con")));
-            }
+            services.AddTransient<CancellationTokenSource>();
+            services.AddTransient<PasswordHasher<User>>();
+
+            services.AddDbContext<ApplicationDbContext>(config =>
+                config.UseMySql("Server=92.38.189.217; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
+
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddRoles<Role>();
+                .AddDefaultTokenProviders();
 
-            
+            services.AddScoped<IRoleStore<Role>>(
+                impl => new ApplicationRoleStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
 
-            services.AddTransient<IProfileRepository>(impl =>
-               new ProfileRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            services.AddTransient<IRoleRepository>(impl =>
-                new RoleRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            services.AddTransient<IAccountRepository>(impl =>
-                new AccountRepository(impl.GetRequiredService<ApplicationDbContext>()));
-
-            
+            services.AddScoped<IUserStore<User>>(
+                impl => new ApplicationUserStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
 
             services.AddAuthorization(config =>
             {
@@ -79,7 +89,6 @@ namespace SocialSolutions
                 {
                     userPolicy.RequireRole("User");
                 });
-                
             });
         }
 
@@ -89,6 +98,8 @@ namespace SocialSolutions
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            DatabasePreparation.Preparate(app);
 
             app.UseRouting();
 
