@@ -8,4 +8,6 @@ services:
 			- "1111:3306"
 
 	web-app:
-		
+		image: zen1488/socialsolutions:latest
+		ports:
+			- "5001:80"
