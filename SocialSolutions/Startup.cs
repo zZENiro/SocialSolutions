@@ -43,7 +43,7 @@ namespace SocialSolutions
             _config = config;
             _env = env;
 
-            DBServer = _config["DBServer"] ?? "92.38.189.217";
+            DBServer = _config["DBServer"] ?? "my-sql";
             DBPassword = _config["DBPassword"] ?? "123456";
             DBPort = _config["DBPort"] ?? "1111";
             DBUser = _config["DBUser"] ?? "root";
@@ -68,7 +68,7 @@ namespace SocialSolutions
             services.AddTransient<PasswordHasher<User>>();
 
             services.AddDbContext<ApplicationDbContext>(config =>
-                config.UseMySql("Server=92.38.189.217; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
+                config.UseMySql("Server=my-sql; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
 
 
             services.AddIdentity<User, Role>()

@@ -1,1 +1,11 @@
-﻿
+﻿version: '3'
+services:
+	my-sql: 
+		image: mysql
+		enviroment:
+			MYSQL_ROOT_PASSWORD: "123456"
+		ports:
+			- "1111:3306"
+
+	web-app:
+		
