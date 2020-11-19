@@ -26,6 +26,10 @@ namespace SocialSolutions.Models
 
         public Location Location { get; set; }
 
+        public IEnumerable<Event> CreatedEvents { get; set; }
+
+        public IEnumerable<Event> ModeratedEvents { get; set; }
+
         public IEnumerable<Community> OwnCommunities { get; set; }
 
         public IEnumerable<Document> Documents { get; set; }
@@ -45,7 +49,7 @@ namespace SocialSolutions.Models
 
         public IEnumerable<UsersSkills> Skills { get; set; }
 
-        public IEnumerable<UsersEvents> Events { get; set; }
+        public IEnumerable<UsersEvents> VisitedEvents { get; set; }
         #endregion
     }
 }

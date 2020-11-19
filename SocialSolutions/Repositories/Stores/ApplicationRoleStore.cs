@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SocialSolutions.Models;
 using SocialSolutions.Repositories.Data;
 using System;
@@ -18,10 +19,12 @@ namespace SocialSolutions.Repositories.Stores
             this._context = context;
         }
 
-        public Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken) => await Task.Factory.StartNew(() =>
         {
-            throw new NotImplementedException();
-        }
+            _context.Roles.FromSqlInterpolated($"EXEC ");
+
+            return IdentityResult.Success;
+        });
 
         public Task<IdentityResult> DeleteAsync(Role role, CancellationToken cancellationToken)
         {
@@ -29,9 +32,7 @@ namespace SocialSolutions.Repositories.Stores
         }
 
         public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        { }
 
         public Task<Role> FindByIdAsync(string roleId, CancellationToken cancellationToken)
         {

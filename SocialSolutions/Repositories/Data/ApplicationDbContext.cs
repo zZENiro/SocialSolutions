@@ -22,17 +22,38 @@ namespace SocialSolutions.Repositories.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<User>(usr =>
+            {
+                usr.HasMany(prop => prop.CreatedEvents)
+                    .WithOne(prop => prop.Creator)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasForeignKey("creator_id")
+                    .IsRequired(true);
+
+                usr.HasMany(prop => prop.ModeratedEvents)
+                    .WithOne(prop => prop.Moderator)
+                    .HasForeignKey("moderator_id")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
+
+                usr.HasMany(prop => prop.OwnCommunities)
+                    .WithOne(prop => prop.Owner)
+                    .HasForeignKey("owner_id")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(true);
+
+                usr.HasMany(prop => prop.Albums)
+                    .WithOne(prop => prop.Owner)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasForeignKey("owner_id")
+                    .IsRequired(true);
+            });
+
             builder.Entity<Community>()
-                .HasOne<User>()
+                .HasOne<User>(prop => prop.Owner)
                 .WithMany(prop => prop.OwnCommunities)
                 .HasForeignKey("owner_id")
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Document>()
-                .HasOne<User>()
-                .WithMany(prop => prop.Documents)
-                .HasForeignKey("owner_id")
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<UsersRoles>(ur =>
             {

@@ -9,26 +9,11 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using SocialSolutions.Models.ViewModels;
 using System.Threading.Tasks;
 
 namespace SocialSolutions.Controllers
 {
-    public class VacancyParameters
-    {
-        public int period { get; set; }
-
-        public int town { get; set; }
-
-        public string keyword { get; set; }
-
-        public int experience { get; set; }
-
-        public int payment_from { get; set; }
-
-        public int payment_to { get; set; }
-    }
-
-
     [Controller]
     [Route("api/[controller]")]
     public class VacanciesController : Controller
@@ -43,7 +28,7 @@ namespace SocialSolutions.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetCatalogs()
+        public async Task<IActionResult> GetCatalogs([FromQuery] string param)
         {
             WebRequest request = WebRequest.Create("https://api.superjob.ru/2.20/catalogues/");
             request.Method = "POST";

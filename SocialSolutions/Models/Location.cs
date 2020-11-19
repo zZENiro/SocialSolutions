@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace SocialSolutions.Models
 {
@@ -14,5 +16,7 @@ namespace SocialSolutions.Models
         public string Address { get; set; }
 
         public string City { get; set; }
+
+        public IEnumerable<LocationsEvents> LocationsEvents { get; set; }
     }
 }

@@ -106,7 +106,7 @@ namespace SocialSolutions.Models.ViewModels
                 Albums = acc.Albums,
                 Hobbies = acc.Hobbies.Select(prop => prop.Hobby),
                 Skills = acc.Skills.Select(prop => prop.Skill),
-                Events = acc.Events.Select(prop => prop.Event)
+                Events = acc.VisitedEvents.Select(prop => prop.Event)
             };
 
             return res;

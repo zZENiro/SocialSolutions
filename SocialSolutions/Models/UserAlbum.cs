@@ -8,7 +8,7 @@ namespace SocialSolutions.Models
         [Key]
         public int Id { get; set; }
 
-        public User User{ get; set; }
+        public User Owner { get; set; }
 
         public IEnumerable<UserImage> Images { get; set; }
     }

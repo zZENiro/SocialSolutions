@@ -28,7 +28,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageUrl = table.Column<string>(nullable: true)
+                    ImageUrl = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,8 +56,8 @@ namespace SocialSolutions.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Longitude = table.Column<double>(nullable: false),
                     Latitude = table.Column<double>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true)
+                    Address = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +70,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,8 +117,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    ImageId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    ImageId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +128,7 @@ namespace SocialSolutions.Migrations
                         column: x => x.ImageId,
                         principalTable: "Image",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,13 +151,13 @@ namespace SocialSolutions.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Login = table.Column<string>(nullable: true),
-                    SecondName = table.Column<string>(nullable: true),
-                    AboutMe = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(nullable: false),
+                    SecondName = table.Column<string>(nullable: false),
+                    AboutMe = table.Column<string>(nullable: false),
                     Birthdate = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<string>(nullable: true),
-                    MobilePhone = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: true)
+                    Gender = table.Column<string>(nullable: false),
+                    MobilePhone = table.Column<string>(nullable: false),
+                    LocationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,7 +167,7 @@ namespace SocialSolutions.Migrations
                         column: x => x.LocationId,
                         principalTable: "Location",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,33 +263,25 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Describtion = table.Column<string>(nullable: true),
-                    PhotoId = table.Column<int>(nullable: true),
-                    OwnerId = table.Column<int>(nullable: true),
-                    owner_id = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Describtion = table.Column<string>(nullable: false),
+                    PhotoId = table.Column<int>(nullable: false),
+                    owner_id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Community", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Community_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Community_Image_PhotoId",
                         column: x => x.PhotoId,
                         principalTable: "Image",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Community_AspNetUsers_owner_id",
                         column: x => x.owner_id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -298,18 +290,18 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Url = table.Column<string>(nullable: true),
-                    owner_id = table.Column<int>(nullable: true)
+                    Url = table.Column<string>(nullable: false),
+                    OwnerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Document", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Document_AspNetUsers_owner_id",
-                        column: x => x.owner_id,
+                        name: "FK_Document_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,32 +310,25 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatorId = table.Column<int>(nullable: true),
-                    ModeratorId = table.Column<int>(nullable: true),
+                    creator_id = table.Column<int>(nullable: false),
+                    moderator_id = table.Column<int>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
                     IsFree = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_AspNetUsers_CreatorId",
-                        column: x => x.CreatorId,
+                        name: "FK_Event_AspNetUsers_creator_id",
+                        column: x => x.creator_id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Event_Location_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Event_AspNetUsers_ModeratorId",
-                        column: x => x.ModeratorId,
+                        name: "FK_Event_AspNetUsers_moderator_id",
+                        column: x => x.moderator_id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -355,14 +340,14 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true)
+                    owner_id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserAlbum", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAlbum_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserAlbum_AspNetUsers_owner_id",
+                        column: x => x.owner_id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -374,8 +359,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    GroupId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    GroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -385,13 +370,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.GroupId,
                         principalTable: "Group",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersGroups_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -400,8 +385,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    HobbyId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    HobbyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -411,13 +396,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.HobbyId,
                         principalTable: "Hobby",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersHobbies_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -426,8 +411,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    PermitId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    PermitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -437,13 +422,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.PermitId,
                         principalTable: "Permit",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersPermits_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -452,8 +437,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    SkillId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    SkillId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -463,13 +448,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.SkillId,
                         principalTable: "Skill",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersSkills_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -478,8 +463,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CommunityId = table.Column<int>(nullable: true),
-                    HobbyId = table.Column<int>(nullable: true)
+                    CommunityId = table.Column<int>(nullable: false),
+                    HobbyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -489,13 +474,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.CommunityId,
                         principalTable: "Community",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CommunitiesHobbies_Hobby_HobbyId",
                         column: x => x.HobbyId,
                         principalTable: "Hobby",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -504,8 +489,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    CommunityId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    CommunityId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -515,13 +500,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.CommunityId,
                         principalTable: "Community",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersCommunities_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -530,8 +515,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    EventId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -541,7 +526,7 @@ namespace SocialSolutions.Migrations
                         column: x => x.EventId,
                         principalTable: "Event",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -550,8 +535,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventId = table.Column<int>(nullable: true),
-                    HobbyId = table.Column<int>(nullable: true)
+                    EventId = table.Column<int>(nullable: false),
+                    HobbyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -561,13 +546,39 @@ namespace SocialSolutions.Migrations
                         column: x => x.EventId,
                         principalTable: "Event",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_HobbiesEvents_Hobby_HobbyId",
                         column: x => x.HobbyId,
                         principalTable: "Hobby",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LocationsEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EventId = table.Column<int>(nullable: false),
+                    LocationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationsEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LocationsEvents_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LocationsEvents_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -576,8 +587,8 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    EventId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false),
+                    EventId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -587,13 +598,13 @@ namespace SocialSolutions.Migrations
                         column: x => x.EventId,
                         principalTable: "Event",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UsersEvents_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -602,7 +613,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageId = table.Column<int>(nullable: true),
+                    ImageId = table.Column<int>(nullable: false),
                     UserAlbumId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -613,7 +624,7 @@ namespace SocialSolutions.Migrations
                         column: x => x.ImageId,
                         principalTable: "Image",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserImage_UserAlbum_UserAlbumId",
                         column: x => x.UserAlbumId,
@@ -628,7 +639,7 @@ namespace SocialSolutions.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageId = table.Column<int>(nullable: true),
+                    ImageId = table.Column<int>(nullable: false),
                     EventAlbumId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -645,7 +656,7 @@ namespace SocialSolutions.Migrations
                         column: x => x.ImageId,
                         principalTable: "Image",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -708,11 +719,6 @@ namespace SocialSolutions.Migrations
                 column: "HobbyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Community_OwnerId",
-                table: "Community",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Community_PhotoId",
                 table: "Community",
                 column: "PhotoId");
@@ -723,24 +729,19 @@ namespace SocialSolutions.Migrations
                 column: "owner_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Document_owner_id",
+                name: "IX_Document_OwnerId",
                 table: "Document",
-                column: "owner_id");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_CreatorId",
+                name: "IX_Event_creator_id",
                 table: "Event",
-                column: "CreatorId");
+                column: "creator_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_LocationId",
+                name: "IX_Event_moderator_id",
                 table: "Event",
-                column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Event_ModeratorId",
-                table: "Event",
-                column: "ModeratorId");
+                column: "moderator_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventAlbum_EventId",
@@ -773,9 +774,19 @@ namespace SocialSolutions.Migrations
                 column: "HobbyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAlbum_UserId",
+                name: "IX_LocationsEvents_EventId",
+                table: "LocationsEvents",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LocationsEvents_LocationId",
+                table: "LocationsEvents",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserAlbum_owner_id",
                 table: "UserAlbum",
-                column: "UserId");
+                column: "owner_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserImage_ImageId",
@@ -876,6 +887,9 @@ namespace SocialSolutions.Migrations
 
             migrationBuilder.DropTable(
                 name: "HobbiesEvents");
+
+            migrationBuilder.DropTable(
+                name: "LocationsEvents");
 
             migrationBuilder.DropTable(
                 name: "UserImage");

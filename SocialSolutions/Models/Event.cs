@@ -25,7 +25,7 @@ namespace SocialSolutions.Models
 
         public IEnumerable<UsersEvents> UsersEvents { get; set; }
 
-        public Location Location { get; set; }
+        public IEnumerable<LocationsEvents> LocationsEvents { get; set; }
 
         public bool IsFree { get; set; }
     }

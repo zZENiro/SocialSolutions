@@ -112,10 +112,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommunityId")
+                    b.Property<int>("CommunityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HobbyId")
+                    b.Property<int>("HobbyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -135,23 +135,20 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Describtion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("PhotoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PhotoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("owner_id")
+                    b.Property<int>("owner_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.HasIndex("PhotoId");
 
@@ -167,15 +164,16 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("owner_id")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("owner_id");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Document");
                 });
@@ -187,13 +185,11 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreatorId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsFree")
@@ -202,19 +198,17 @@ namespace SocialSolutions.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("creator_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModeratorId")
+                    b.Property<int>("moderator_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("creator_id");
 
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("ModeratorId");
+                    b.HasIndex("moderator_id");
 
                     b.ToTable("Event");
                 });
@@ -226,10 +220,11 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EventId")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -249,7 +244,7 @@ namespace SocialSolutions.Migrations
                     b.Property<int?>("EventAlbumId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -268,10 +263,11 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -288,10 +284,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EventId")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HobbyId")
+                    b.Property<int>("HobbyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -311,6 +307,7 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -326,6 +323,7 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -341,9 +339,11 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Latitude")
@@ -357,6 +357,28 @@ namespace SocialSolutions.Migrations
                     b.ToTable("Location");
                 });
 
+            modelBuilder.Entity("SocialSolutions.Models.LocationsEvents", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("LocationsEvents");
+                });
+
             modelBuilder.Entity("SocialSolutions.Models.Permit", b =>
                 {
                     b.Property<int>("Id")
@@ -365,6 +387,7 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -409,6 +432,7 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -424,6 +448,7 @@ namespace SocialSolutions.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AboutMe")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AccessFailedCount")
@@ -444,9 +469,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
@@ -456,9 +482,11 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MobilePhone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -479,6 +507,7 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecondName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -513,12 +542,12 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("owner_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("owner_id");
 
                     b.ToTable("UserAlbum");
                 });
@@ -530,7 +559,7 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserAlbumId")
@@ -552,10 +581,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommunityId")
+                    b.Property<int>("CommunityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -574,10 +603,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EventId")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -596,10 +625,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -618,10 +647,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("HobbyId")
+                    b.Property<int>("HobbyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -640,10 +669,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PermitId")
+                    b.Property<int>("PermitId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -684,10 +713,10 @@ namespace SocialSolutions.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("SkillId")
+                    b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -739,57 +768,62 @@ namespace SocialSolutions.Migrations
                 {
                     b.HasOne("SocialSolutions.Models.Community", "Community")
                         .WithMany("Hobbies")
-                        .HasForeignKey("CommunityId");
+                        .HasForeignKey("CommunityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.Hobby", "Hobby")
                         .WithMany()
-                        .HasForeignKey("HobbyId");
+                        .HasForeignKey("HobbyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.Community", b =>
                 {
-                    b.HasOne("SocialSolutions.Models.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-
                     b.HasOne("SocialSolutions.Models.Image", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("SocialSolutions.Models.User", null)
+                    b.HasOne("SocialSolutions.Models.User", "Owner")
                         .WithMany("OwnCommunities")
                         .HasForeignKey("owner_id")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.Document", b =>
                 {
-                    b.HasOne("SocialSolutions.Models.User", null)
+                    b.HasOne("SocialSolutions.Models.User", "Owner")
                         .WithMany("Documents")
-                        .HasForeignKey("owner_id")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.Event", b =>
                 {
                     b.HasOne("SocialSolutions.Models.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
-                    b.HasOne("SocialSolutions.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
+                        .WithMany("CreatedEvents")
+                        .HasForeignKey("creator_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "Moderator")
-                        .WithMany()
-                        .HasForeignKey("ModeratorId");
+                        .WithMany("ModeratedEvents")
+                        .HasForeignKey("moderator_id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.EventAlbum", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Event", "Event")
                         .WithMany("EventAlbums")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.EventImage", b =>
@@ -800,46 +834,75 @@ namespace SocialSolutions.Migrations
 
                     b.HasOne("SocialSolutions.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.Group", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.HobbiesEvents", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Event", "Event")
                         .WithMany("HobbiesEvents")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.Hobby", "Hobby")
                         .WithMany("HobbiesEvents")
-                        .HasForeignKey("HobbyId");
+                        .HasForeignKey("HobbyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SocialSolutions.Models.LocationsEvents", b =>
+                {
+                    b.HasOne("SocialSolutions.Models.Event", "Event")
+                        .WithMany("LocationsEvents")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialSolutions.Models.Location", "Location")
+                        .WithMany("LocationsEvents")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.User", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UserAlbum", b =>
                 {
-                    b.HasOne("SocialSolutions.Models.User", "User")
+                    b.HasOne("SocialSolutions.Models.User", "Owner")
                         .WithMany("Albums")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("owner_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UserImage", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.UserAlbum", null)
                         .WithMany("Images")
@@ -850,55 +913,75 @@ namespace SocialSolutions.Migrations
                 {
                     b.HasOne("SocialSolutions.Models.Community", "Community")
                         .WithMany("Users")
-                        .HasForeignKey("CommunityId");
+                        .HasForeignKey("CommunityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
                         .WithMany("Communities")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UsersEvents", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Event", "Event")
                         .WithMany("UsersEvents")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
-                        .WithMany("Events")
-                        .HasForeignKey("UserId");
+                        .WithMany("VisitedEvents")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UsersGroups", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Group", "Group")
                         .WithMany("UsersGroups")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
                         .WithMany("Groups")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UsersHobbies", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Hobby", "Hobby")
                         .WithMany("UsersHobbies")
-                        .HasForeignKey("HobbyId");
+                        .HasForeignKey("HobbyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
                         .WithMany("Hobbies")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UsersPermits", b =>
                 {
                     b.HasOne("SocialSolutions.Models.Permit", "Permit")
                         .WithMany()
-                        .HasForeignKey("PermitId");
+                        .HasForeignKey("PermitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
                         .WithMany("Permits")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SocialSolutions.Models.UsersRoles", b =>
@@ -920,11 +1003,15 @@ namespace SocialSolutions.Migrations
                 {
                     b.HasOne("SocialSolutions.Models.Skill", "Skill")
                         .WithMany("UsersSkills")
-                        .HasForeignKey("SkillId");
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SocialSolutions.Models.User", "User")
                         .WithMany("Skills")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
