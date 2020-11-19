@@ -1,13 +1,12 @@
 ﻿version: '3'
 services:
-	my-sql: 
-		image: mysql
-		enviroment:
-			MYSQL_ROOT_PASSWORD: "123456"
-		ports:
-			- "1111:3306"
-
-	web-app:
-		image: zen1488/socialsolutions:latest
-		ports:
-			- "5001:80"
+    my-sql: 
+        image: mysql
+        enviroment:
+            MYSQL_ROOT_PASSWORD: "123456"
+        ports:
+            - "1111:3306"
+    web-app:
+        image: zen1488/socialsolutions:latest
+        ports:
+            - "5001:80"
