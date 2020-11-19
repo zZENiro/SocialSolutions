@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["SocialSolutions/SocialSolutions.csproj", "SocialSolutions/"]
-RUN dotnet restore "SocialSolutions/SocialSolutions.csproj"
-COPY . .
+COPY ["*.csproj", "./"]
+RUN dotnet restore
+COPY . ./
 WORKDIR "/src/SocialSolutions"
 RUN dotnet build "SocialSolutions.csproj" -c Release -o /app/build
 
