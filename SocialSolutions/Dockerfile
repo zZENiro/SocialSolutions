@@ -1,15 +1,20 @@
-FROM mcr.microsoft.com/dotnet/sdk AS build-env
-WORKDIR /app
-
-COPY *.csproj ./
-RUN dotnet restore
-
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-FROM mcr.microsoft.com/dotnet/runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-COPY --from=build-env /app/out .
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+COPY ["SocialSolutions/SocialSolutions.csproj", "SocialSolutions/"]
+RUN dotnet restore "SocialSolutions/SocialSolutions.csproj"
+COPY . .
+WORKDIR "/src/SocialSolutions"
+RUN dotnet build "SocialSolutions.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "SocialSolutions.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SocialSolutions.dll"]
