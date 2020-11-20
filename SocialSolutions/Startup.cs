@@ -67,8 +67,8 @@ namespace SocialSolutions
             services.AddTransient<CancellationTokenSource>();
             services.AddTransient<PasswordHasher<User>>();
 
-            services.AddDbContext<ApplicationDbContext>(config =>
-                config.UseMySql("Server=my-sql-container; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
+            //services.AddDbContext<ApplicationDbContext>(config =>
+            //    config.UseMySql("Server=my-sql-container; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
 
 
             services.AddIdentity<User, Role>()
@@ -99,7 +99,7 @@ namespace SocialSolutions
                 app.UseDeveloperExceptionPage();
             }
 
-            DatabasePreparation.Preparate(app);
+            //DatabasePreparation.Preparate(app);
 
             app.UseRouting();
 
