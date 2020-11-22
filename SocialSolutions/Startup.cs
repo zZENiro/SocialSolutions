@@ -14,16 +14,40 @@ using SocialSolutions.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.IdentityModel.JsonWebTokens;
+using System.Net.Http;
+using SocialSolutions.Models;
+using Microsoft.AspNetCore.Identity;
+using SocialSolutions.Repositories.Stores;
+using System.Threading;
 
 namespace SocialSolutions
 {
     public class Startup
     {
         IConfiguration _config;
+        private readonly IWebHostEnvironment _env;
 
-        public Startup(IConfiguration config)
+        #region DB Credetionals
+
+        private string DBServer;
+        private string DBPassword;
+        private string DBPort;
+        private string DBUser;
+        private string Database;
+
+        #endregion
+
+        public Startup(IConfiguration config, IWebHostEnvironment env)
         {
             _config = config;
+            _env = env;
+
+            //DBServer = _config["DBServer"] ?? "92.38.189.217";
+            //DBPassword = _config["DBPassword"] ?? "123456";
+            //DBPort = _config["DBPort"] ?? "1111";
+            //DBUser = _config["DBUser"] ?? "root";
+            //Database = _config["Database"] ?? "socialSolutions_db";
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -34,41 +58,30 @@ namespace SocialSolutions
             {
                 config.AddDefaultPolicy(policy =>
                 {
-                    policy.AllowAnyOrigin();
+                    policy.WithOrigins("http://ss.remonstro.ru", "https://ss.remonstro.ru");
                     policy.AllowAnyMethod();
                     policy.AllowAnyHeader();
-                });        
+                });
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(_config.GetConnectionString("default")));
+            services.AddTransient<CancellationTokenSource>();
+            services.AddTransient<PasswordHasher<User>>();
 
-            services.AddTransient<IProfileRepository>(impl =>
-               new ProfileRepository(impl.GetRequiredService<ApplicationDbContext>()));
+            //services.AddDbContext<ApplicationDbContext>(config =>
+            //    config.UseMySql("Server=my-sql-container; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
 
-            services.AddTransient<IRoleRepository>(impl =>
-                new RoleRepository(impl.GetRequiredService<ApplicationDbContext>()));
 
-            services.AddTransient<IAccountRepository>(impl =>
-                new AccountRepository(impl.GetRequiredService<ApplicationDbContext>()));
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddAuthentication(config =>
-            {
-                config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, config =>
-                {
-                    config.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = _config["Jwt:Issuer"],
-                        ValidAudience = _config["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]))
-                    };
-                });
+            services.AddScoped<IRoleStore<Role>>(
+                impl => new ApplicationRoleStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
+
+            services.AddScoped<IUserStore<User>>(
+                impl => new ApplicationUserStore(
+                    impl.GetRequiredService<ApplicationDbContext>()));
 
             services.AddAuthorization(config =>
             {
@@ -85,6 +98,8 @@ namespace SocialSolutions
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //DatabasePreparation.Preparate(app);
 
             app.UseRouting();
 

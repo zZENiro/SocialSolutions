@@ -13,6 +13,8 @@ namespace SocialSolutions.Models
 
         public User Moderator { get; set; }
 
+        public bool IsPublished { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
@@ -23,7 +25,7 @@ namespace SocialSolutions.Models
 
         public IEnumerable<UsersEvents> UsersEvents { get; set; }
 
-        public Location Location { get; set; }
+        public IEnumerable<LocationsEvents> LocationsEvents { get; set; }
 
         public bool IsFree { get; set; }
     }
