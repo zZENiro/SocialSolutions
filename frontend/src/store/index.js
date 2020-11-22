@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Base64 from 'crypto-js/enc-base64';
 import Utf8 from 'crypto-js/enc-utf8';
+import work from './work';
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     role: {},
     badEye: false,
     drawer: true,
+    hhToken: 'S18EDLQOL1BCJNBGAQRJT4KVUMPQB0KGRUL79R6J8SNTQ2CCEU44D846LGFESOKG',
   },
   mutations: {
     SET_TOKEN(state, data) {
@@ -80,6 +82,14 @@ export default new Vuex.Store({
       localStorage.removeItem('token');
     },
   },
+  getters: {
+    hhHeaders(state) {
+      return {
+        Authorization: state.hhToken,
+      };
+    },
+  },
   modules: {
+    work,
   },
 })
