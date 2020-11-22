@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["groups"],{"754e":function(e,n,t){"use strict";t.r(n);var a=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[t("DeskTitle",{attrs:{image:"2",title:"Сообщества"}}),t("v-container",[e._v(" groups ")])],1)},r=[],i=t("2877"),s=t("6544"),l=t.n(s),o=t("a523"),u={},c=Object(i["a"])(u,a,r,!1,null,null,null);n["default"]=c.exports;l()(c,{VContainer:o["a"]})}}]);
-//# sourceMappingURL=groups.9c1383fe.js.map
