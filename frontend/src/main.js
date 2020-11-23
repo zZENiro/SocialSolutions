@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueMeta from 'vue-meta';
 import App from './App.vue'
 import './registerServiceWorker'
+import moment from 'moment';
 import router from './router'
 import store from './store'
 import '@/scss/style.scss';
@@ -21,6 +22,8 @@ import {
   // merge,
   includes,
 } from 'lodash';
+
+moment.locale('ru');
 
 Vue.config.productionTip = false
 
@@ -46,7 +49,7 @@ Vue.prototype.$lodash = {
 // Vue.prototype.$hammer = Hammer;
 // Vue.prototype.$uuid = uuid;
 Vue.prototype.$axios = axiosInstance;
-// Vue.prototype.$moment = moment;
+Vue.prototype.$moment = moment;
 Vue.prototype.$Base64 = Base64;
 // Vue.prototype.$arrToSrcset = arrToSrcset;
 // Vue.prototype.$iban = iban;

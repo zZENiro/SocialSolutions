@@ -23,7 +23,7 @@ export default {
     title: String,
     subtitle: String,
     image: {
-      type: Number,
+      type: [Number, String],
       default: 1,
     },
   },
