@@ -18,11 +18,11 @@ namespace SocialSolutions.Controllers
 {
     public class OpenEnvParams
     {
-        public double[] bbox { get; set; }
+        public double[]? bbox { get; set; }
         public int? z { get; set; }
-        public string[] categories { get; set; }
-        public string[] subcategories { get; set; }
-        public int[] elements { get; set; }
+        public string[]? categories { get; set; }
+        public string[]? subcategories { get; set; }
+        public int[]? elements { get; set; }
         public bool callback { get; set; }
     }
 

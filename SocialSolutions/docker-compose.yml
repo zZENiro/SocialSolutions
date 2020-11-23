@@ -1,13 +1,24 @@
-﻿version: '3'
+﻿version: '3.0'
+
 services:
-    my-sql-container: 
-        image: mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: "123456"
-        ports:
-            - "1111:3306"
-    web-app:
-        build: .
-        ports:
-            - "5001:443"
-            - "5000:80"
+  database:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_DATABASE: 'newDb_test'
+      MYSQL_PASSWORD: '123456'
+    ports:
+      - '3306:3306'
+    volumes:
+      - './my/custom:/etc/mysql/conf.d'
+      - './my/own/datadir:/var/lib/mysql'
+
+  web-app:
+    build: .
+    ports:
+      - "5001:5001"
+      - "5000:5000"
+    environment:
+      MYSQL_CONNECTION_STR: 'Server=database; UserId=root; Password=123456; Database=newDb_test'
+    links:
+      - database
