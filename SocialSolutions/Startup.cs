@@ -35,6 +35,7 @@ namespace SocialSolutions
             _env = env;
 
             DBConnectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STR");
+            Console.WriteLine(DBConnectionString);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -54,7 +55,8 @@ namespace SocialSolutions
             services.AddTransient<CancellationTokenSource>();
             services.AddTransient<PasswordHasher<User>>();
 
-            services.AddDbContext<ApplicationDbContext>(config => config.UseMySql(DBConnectionString));
+            services.AddDbContext<ApplicationDbContext>(config => 
+                config.UseMySql(DBConnectionString));
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
