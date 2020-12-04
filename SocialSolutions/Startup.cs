@@ -27,27 +27,15 @@ namespace SocialSolutions
     {
         IConfiguration _config;
         private readonly IWebHostEnvironment _env;
-
-        #region DB Credetionals
-
-        private string DBServer;
-        private string DBPassword;
-        private string DBPort;
-        private string DBUser;
-        private string Database;
-
-        #endregion
+        private readonly string? DBConnectionString;
 
         public Startup(IConfiguration config, IWebHostEnvironment env)
         {
             _config = config;
             _env = env;
 
-            //DBServer = _config["DBServer"] ?? "92.38.189.217";
-            //DBPassword = _config["DBPassword"] ?? "123456";
-            //DBPort = _config["DBPort"] ?? "1111";
-            //DBUser = _config["DBUser"] ?? "root";
-            //Database = _config["Database"] ?? "socialSolutions_db";
+            DBConnectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STR");
+            Console.WriteLine(DBConnectionString);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -67,9 +55,8 @@ namespace SocialSolutions
             services.AddTransient<CancellationTokenSource>();
             services.AddTransient<PasswordHasher<User>>();
 
-            //services.AddDbContext<ApplicationDbContext>(config =>
-            //    config.UseMySql("Server=my-sql-container; Port=1111; Username=root; Password=123456; Database=socialSolutions_db"));
-
+            services.AddDbContext<ApplicationDbContext>(config => 
+                config.UseMySql(DBConnectionString));
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -84,12 +71,8 @@ namespace SocialSolutions
                     impl.GetRequiredService<ApplicationDbContext>()));
 
             services.AddAuthorization(config =>
-            {
-                config.AddPolicy("userPolicy", userPolicy =>
-                {
-                    userPolicy.RequireRole("User");
-                });
-            });
+                config.AddPolicy("userPolicy", userPolicy  =>
+                    userPolicy.RequireRole("User")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -99,7 +82,7 @@ namespace SocialSolutions
                 app.UseDeveloperExceptionPage();
             }
 
-            //DatabasePreparation.Preparate(app);
+            DatabasePreparation.Preparate(app);
 
             app.UseRouting();
 
