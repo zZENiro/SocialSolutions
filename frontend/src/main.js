@@ -14,7 +14,7 @@ import Base64 from 'crypto-js/enc-base64';
 import ssCard from '@/components/ssCard.vue';
 import DeskTitle from '@/components/DeskTitle.vue';
 import {
-  // debounce,
+  debounce,
   // isEqual,
   // upperFirst,
   // find,
@@ -39,7 +39,7 @@ const axiosInstance = axios.create({
 
 // prototype section
 Vue.prototype.$lodash = {
-  // debounce,
+  debounce,
   // isEqual,
   // upperFirst,
   // find,

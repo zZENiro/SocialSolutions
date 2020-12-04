@@ -10,6 +10,7 @@ export default {
   mixins: [places],
   props: {
     organizations: Array,
+    bbox: Array,
   },
   data() {
     return {
@@ -24,26 +25,13 @@ export default {
         features: [],
       };
       if (!this.organizations.length) return markers;
-      const features = this.organizations.map((task) => {
-        return {
-          type: 'Feature',
-          properties: {
-            title: task.Caption_small,
-            phone: task.Contact?.Phone,
-            // text: 'dfg',
-            icon: 'fa-star'
-          },
-          id: task.id,
-          geometry: {
-            type: 'Point',
-            coordinates: [
-              Number.parseFloat(task.Contact.Longitude),
-              Number.parseFloat(task.Contact.Latitude),
-            ]
-          },
-        }
-      })
-      markers.features = features;
+      markers.features = this.organizations.map((ft) => ({
+        ...ft,
+        geomerty: {
+          ...ft.geometry,
+          coordinates: ft.geometry.coordinates.reverse(),
+        },
+      }));
       return markers;
     },
   },
@@ -56,6 +44,9 @@ export default {
         if ('google' in window) this.setMarkers(val);
       },
     },
+    'googleApis.bbox'(val) {
+      this.$emit('update:bbox', val);
+    },
   },
   mounted() {
     this.loadMapScript()
@@ -67,15 +58,20 @@ export default {
 
     // handle event
     this.$on('google.data.click', (feature) => {
-      const title = feature.feature.getProperty('title');
-      const phone = feature.feature.getProperty('phone');
+      const data = feature.feature.getProperty('data');
+      const coord = [];
+      feature.feature.getGeometry().forEachLatLng((LatLng) => coord.push(LatLng.toString()));
+      const { name, address } = data;
       const content = `
         <div style="padding:1rem;">
           <div class="title">
-            ${title}
+            ${name}
           </div>
           <div class="subtitle mt-3">
-            ${phone}
+            ${address}
+          </div>
+          <div class="subtitle mt-3">
+            ${coord.join(' ')}
           </div>
         </div>
       `;

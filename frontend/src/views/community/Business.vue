@@ -5,7 +5,7 @@
     </transition>
     <transition name="fade" mode="out-in" tag="div">
       <div v-if="!mapList" style="flex:1;min-width:100%;" :key="1">
-        <Map :organizations="organizations" />
+        <Map :organizations="organizations" :bbox.sync="bbox" />
       </div>
       <v-container v-if="mapList" :key="2">
         <div class="text-h3 my-6 my-sm-12 ml-3">Список объектов</div>
@@ -50,7 +50,8 @@ export default {
         Dost_Sluh: 'mdi-ear-hearing-off',
         Dost_Um: 'mdi-brain',
         Dost_Zren: 'mdi-eye-off'
-      }
+      },
+      bbox: [],
     }
   },
   computed: {
@@ -63,6 +64,9 @@ export default {
         this.getOrgs();
       },
     },
+    bbox() {
+      this.debouncedGetOrgs();
+    },
   },
   metaInfo() {
     return {
@@ -74,24 +78,40 @@ export default {
   mounted() {
     // call api for get data
     this.getOrgs();
+
+    this.debouncedGetOrgs = this.$lodash.debounce(this.getOrgs, 300);
+
+    // set cancel tokens for each api
+    this.getOrgsToken = this.$CancelToken.source();
   },
   methods: {
     async getOrgs() {
-      const url = '/api/freeenv/getresult';
-      const { region } = this.mapFilters;
-      const { sfera } = this.mapFilters;
-      const data = `{"inputsParam":'{"regnId":"66053000","regnText":"${region}","sferaId":"11","sferaText":"${sfera}","vidId":null,"vidText":null,"captionId":null,"captionText":null,"captionOsiId":null,"captionOsiText":null}'}`;
+      if (this.bbox.length < 4) return;
+      const url = '/api/openenv/getresult';
+      // const { region } = this.mapFilters;
+      // const { sfera } = this.mapFilters;
+      const bbox = this.bbox;
+      const data = {
+        bbox,
+        z: 12,
+        categories: null,
+        subcategories: null,
+        elements: [38464, 38463, 32511],
+        cllback: true,
+      };
       const headers = {
         'Content-Type': 'application/json',
       };
+
       await this.callApi({ url, data, headers });
     },
     async callApi({ url, data, headers }) {
       this.loading = true;
       try {
         const res = await this.$axios.post(url, data, { headers });
-        const result = JSON.parse(res.data.d).Result;
-        this.organizations = result;
+        const result = JSON.parse(`${res.data.slice(6, -1)}`);
+        this.organizations = result.data?.features?.filter((ftr) => ftr.type === 'Feature') || [];
+        console.log(this.organizations);
       } catch (error) {
         console.log(error);
       }

@@ -22,6 +22,7 @@ const places = {
         directionsService: null,
         directionsRenderer: null,
         minZoomLevel: 8,
+        bbox: [],
       },
     }
   },
@@ -70,6 +71,11 @@ const places = {
       map.data.addListener("click", event => {
         this.$emit('google.data.click', event);
       });
+
+      map.addListener("bounds_changed", () => {
+        // set bbox
+        this.$set(this.googleApis, 'bbox', Object.values(map.getBounds()?.toJSON() || {}));
+      })
     },
     initDirections() {
       // init directions API
@@ -169,7 +175,7 @@ const places = {
         };
       });
 
-      if (markers.features.length) this.zoom();
+      // if (markers.features.length) this.zoom();
     },
     zoom() {
       // zoom to show all features in map on screen
