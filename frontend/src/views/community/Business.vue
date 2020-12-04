@@ -5,7 +5,7 @@
     </transition>
     <transition name="fade" mode="out-in" tag="div">
       <div v-if="!mapList" style="flex:1;min-width:100%;" :key="1">
-        <Map :organizations="organizations" :bbox.sync="bbox" />
+        <Map :organizations="organizations" :bbox.sync="bbox" :latLng.sync="latLng"/>
       </div>
       <v-container v-if="mapList" :key="2">
         <div class="text-h3 my-6 my-sm-12 ml-3">Список объектов</div>
@@ -13,9 +13,8 @@
           <template v-for="(item, i) in organizations">
             <v-list-item :key="i" three-line>
               <v-list-item-content>
-                <v-list-item-title>{{ item.Caption }}</v-list-item-title>
-                <v-list-item-subtitle>Адрес: {{ item.Contact.Address }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Телефон: {{ item.Contact.Phone }}</v-list-item-subtitle>
+                <v-list-item-title>{{ item.properties.data.name }}</v-list-item-title>
+                <v-list-item-subtitle>Адрес: {{ item.properties.data.address }}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <div class="d-flex">
@@ -52,6 +51,7 @@ export default {
         Dost_Zren: 'mdi-eye-off'
       },
       bbox: [],
+      latLng: {lat: 56.8119915, lng: 60.4772995},
     }
   },
   computed: {
@@ -60,7 +60,12 @@ export default {
   watch: {
     mapFilters: {
       deep: true,
-      handler() {
+      handler(val) {
+        const latLng = val.region ? {
+          lat: Number.parseFloat(val.region.lat),
+          lng: Number.parseFloat(val.region.lon),
+        } : {lat: 56.8119915, lng: 60.4772995}
+        this.latLng = latLng;
         this.getOrgs();
       },
     },
@@ -80,9 +85,6 @@ export default {
     this.getOrgs();
 
     this.debouncedGetOrgs = this.$lodash.debounce(this.getOrgs, 300);
-
-    // set cancel tokens for each api
-    this.getOrgsToken = this.$CancelToken.source();
   },
   methods: {
     async getOrgs() {
@@ -111,7 +113,6 @@ export default {
         const res = await this.$axios.post(url, data, { headers });
         const result = JSON.parse(`${res.data.slice(6, -1)}`);
         this.organizations = result.data?.features?.filter((ftr) => ftr.type === 'Feature') || [];
-        console.log(this.organizations);
       } catch (error) {
         console.log(error);
       }
@@ -131,7 +132,7 @@ export default {
     height: 100%;
     background-color: rgba($color: #ccd8ff, $alpha: .5);
     backdrop-filter: blur(3px);
-    z-index: 1000;
+    z-index: 1;
   }
   .map-loading::after {
     content: " ";
@@ -144,7 +145,7 @@ export default {
     border-color: var(--v-primary-base) transparent var(--v-primary-base) transparent;
     top: calc(50vh - 4rem);
     left: calc(50% - 4rem);
-    z-index: 1000;
+    z-index: 1;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 

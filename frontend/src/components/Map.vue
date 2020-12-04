@@ -11,6 +11,7 @@ export default {
   props: {
     organizations: Array,
     bbox: Array,
+    latLng: Object,
   },
   data() {
     return {
@@ -46,6 +47,9 @@ export default {
     },
     'googleApis.bbox'(val) {
       this.$emit('update:bbox', val);
+    },
+    latLng(val) {
+      this.setPos(val);
     },
   },
   mounted() {

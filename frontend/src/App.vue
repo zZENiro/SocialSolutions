@@ -1,21 +1,23 @@
 <template>
   <v-app>
-    <Drawer v-if="$route.path !== '/'" app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
+    <Drawer v-if="$route.path !== '/'" app :drawer.sync="drawer" :drawerMini.sync="drawerMini"/>
     <!-- <v-navigation-drawer permanent app></v-navigation-drawer>
     <v-app-bar app></v-app-bar> -->
-    <AppBar app :drawer.sync="drawer" :drawerMini.sync="drawerMini" />
+    <AppBar app :drawer.sync="drawer" :drawerMini.sync="drawerMini" :menu="menu"/>
 
     <v-main>
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
     </v-main>
+    <BottomBar v-if="$vuetify.breakpoint.xsOnly" :menu="menu"/>
   </v-app>
 </template>
 
 <script>
 import Drawer from '@/components/Drawer.vue';
 import AppBar from '@/components/AppBar.vue';
+import BottomBar from '@/components/BottomBar.vue';
 import { mapState } from 'vuex'
 
 export default {
@@ -23,10 +25,28 @@ export default {
   components: {
     Drawer,
     AppBar,
+    BottomBar,
   },
   data: () => ({
     drawer: true,
     drawerMini: false,
+    menu: [
+      {
+        title: 'Блог',
+        href: '/blog',
+        icon: 'mdi-forum',
+      },
+      {
+        title: 'Сообщество',
+        href: '/community',
+        icon: 'mdi-account-group',
+      },
+      {
+        title: 'Поддержать',
+        href: '/donut',
+        icon: 'mdi-handshake',
+      },
+    ],
   }),
   computed: {
     ...mapState(['badEye']),

@@ -161,23 +161,10 @@ export default {
   props: {
     drawer: Boolean,
     drawerMini: Boolean,
+    menu: Array,
   },
   data() {
     return {
-      menu: [
-        {
-          title: 'Блог',
-          href: '/blog',
-        },
-        {
-          title: 'Сообщество',
-          href: '/community',
-        },
-        {
-          title: 'Поддержать',
-          href: '/donut',
-        },
-      ],
       openSearch: false,
     }
   },

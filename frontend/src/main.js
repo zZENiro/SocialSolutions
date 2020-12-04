@@ -20,6 +20,7 @@ import {
   // find,
   // findKey,
   // merge,
+  uniqBy,
   includes,
 } from 'lodash';
 
@@ -43,6 +44,7 @@ Vue.prototype.$lodash = {
   // isEqual,
   // upperFirst,
   // find,
+  uniqBy,
   includes,
 };
 // Vue.prototype.$anime = anime

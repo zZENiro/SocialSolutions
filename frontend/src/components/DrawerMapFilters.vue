@@ -11,14 +11,17 @@
       </v-list-item-content>
     </v-list-item>
     <v-list-item class="my-3">
-      <v-select
+      <v-autocomplete
         v-model="filters.region"
-        :items="availableRegions"
+        :items="citiesApi"
+        return-object
+        item-value="id"
+        item-text="name"
         label="Регион"
         outlined
         rounded
         :hide-details="'auto'"
-      ></v-select>
+      ></v-autocomplete>
     </v-list-item>
     <v-list-item class="my-3">
       <v-select
@@ -132,6 +135,7 @@ export default {
         },
       ],
       list: false,
+      citiesApi: [],
     }
   },
   computed: {
@@ -152,6 +156,17 @@ export default {
   },
   mounted() {
     this.list = this.mapList;
+    this.getCitiesApi();
+  },
+  methods: {
+    getCitiesApi() {
+      const url = 'https://cors-anywhere.herokuapp.com/http://www.kartadostupnosti.ru/api/cities.php';
+      this.$axios.get(url)
+        .then((res) => {
+          const cities = Object.values(res.data).flat()
+          this.citiesApi = this.$lodash.uniqBy(cities, 'id');
+        });
+    }
   },
 }
 </script>

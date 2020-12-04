@@ -7,7 +7,7 @@
     </DeskTitle>
     <v-container class="flex-grow-1 d-flex align-center">
       <v-row class="justify-center">
-        <v-col cols="12" sm="8" class="d-flex justify-space-around">
+        <v-col cols="12" sm="8" class="d-flex justify-space-around flex-wrap">
           <SsCard class="mx-2" v-for="(item, i) in donuts" :key="i" :item="item" />
         </v-col>
       </v-row>
